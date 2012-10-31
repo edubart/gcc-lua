@@ -216,7 +216,7 @@ inherits from :class:`gcc.Tree`.
 
    Unary-operand expression.
 
-   .. method:: operand()
+   .. method:: operand(op)
 
       Returns tree node of given operand ``op`` in integer range [0, 1).
 
@@ -239,7 +239,7 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Address of an object.
 
-   .. method:: operand()
+   .. method:: operand(op)
 
       Returns tree node of given operand ``op`` in integer range [0, 1).
 
