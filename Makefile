@@ -7,7 +7,7 @@
 gcc:
 	@$(MAKE) -C gcc
 
-test: gcc
+test:
 	@$(MAKE) -C test
 
 clean:
