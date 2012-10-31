@@ -1,0 +1,67 @@
+@import "sphinxdoc.css";
+
+/**
+ * colours from Lua manual and logo
+ */
+
+body {
+  background-color: #e0e0ff;
+  margin: 0em 2em 0em 2em;
+}
+
+div.bodywrapper {
+  margin: 0 14em 0 0;
+}
+
+div.sphinxsidebar {
+  width: 12em;
+}
+
+div.related {
+  background-color: #010180;
+  color: #fff;
+}
+
+div.related ul {
+  background-image: none;
+}
+
+div.related ul li a {
+  color: #fff;
+}
+
+div.footer {
+  background-color: #fff;
+}
+
+p.logo {
+  text-align: center;
+}
+
+/**
+ * syntax highlighting
+ */
+
+.highlight .s-Multiline {
+  color: #4070a0;
+}
+
+/**
+ * styling for field lists
+ * @see NumPy's doc/source/_static/scipy.css
+ */
+
+.field-list th {
+  color: rgb(0,102,204);
+}
+
+table.field-list th {
+  background-color: #ede;
+  border-left: 1px solid #aaa !important;
+  padding-left: 5px;
+}
+
+table.field-list {
+  border-collapse: separate;
+  border-spacing: 10px;
+}
