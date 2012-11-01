@@ -57,3 +57,6 @@ struct {
 
 /* function */
 void (*function_int_returning_void)(int);
+
+/* operand */
+const char *address_of_const_char = &const_char;

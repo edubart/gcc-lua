@@ -387,11 +387,16 @@ static int gcclua_tree_get_operand(lua_State *L)
 {
   const tree *t;
   tree child;
-  int op;
+  int nop, op;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
+  nop = TREE_OPERAND_LENGTH(*t);
+  if (lua_isnone(L, 2)) {
+    lua_pushnumber(L, nop);
+    return 1;
+  }
   op = luaL_checkint(L, 2);
-  if (op < 0 || op >= TREE_OPERAND_LENGTH(*t)) {
+  if (op < 0 || op >= nop) {
     lua_pushliteral(L, "tree operand out of range");
     lua_error(L);
   }

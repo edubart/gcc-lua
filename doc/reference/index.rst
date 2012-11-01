@@ -126,9 +126,11 @@ inherits from :class:`gcc.Tree`.
 
    Binary-operator expression.
 
-   .. method:: operand(op)
+   .. method:: operand([op])
 
       Returns tree node of given operand ``op`` in integer range [0, 2).
+
+      If ``op`` is absent, returns number of operands.
 
    .. method:: type()
 
@@ -216,9 +218,11 @@ inherits from :class:`gcc.Tree`.
 
    Unary-operand expression.
 
-   .. method:: operand(op)
+   .. method:: operand([op])
 
       Returns tree node of given operand ``op`` in integer range [0, 1).
+
+      If ``op`` is absent, returns number of operands.
 
    .. method:: type()
 
@@ -239,9 +243,11 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Address of an object.
 
-   .. method:: operand(op)
+   .. method:: operand([op])
 
       Returns tree node of given operand ``op`` in integer range [0, 1).
+
+      If ``op`` is absent, returns number of operands.
 
 .. class:: ArrayType
 
