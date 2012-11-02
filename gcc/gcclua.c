@@ -386,26 +386,14 @@ static int gcclua_tree_get_int_cst(lua_State *L)
 static int gcclua_tree_get_operand(lua_State *L)
 {
   const tree *t;
-  tree child;
-  int nop, op;
+  int i, n;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  nop = TREE_OPERAND_LENGTH(*t);
-  if (lua_isnone(L, 2)) {
-    lua_pushnumber(L, nop);
-    return 1;
+  n = TREE_OPERAND_LENGTH(*t);
+  for (i = 0; i < n; i++) {
+    gcclua_tree_new(L, TREE_OPERAND(*t, i));
   }
-  op = luaL_checkint(L, 2);
-  if (op < 0 || op >= nop) {
-    lua_pushliteral(L, "tree operand out of range");
-    lua_error(L);
-  }
-  child = TREE_OPERAND(*t, op);
-  if (!child) {
-    return 0;
-  }
-  gcclua_tree_new(L, child);
-  return 1;
+  return n;
 }
 
 static int gcclua_tree_get_public(lua_State *L)

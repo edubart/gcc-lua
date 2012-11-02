@@ -341,9 +341,7 @@ end
 -- operand
 function test.address_of_const_char(decl)
   assert(decl:initial():code() == gcc.ADDR_EXPR)
-  assert(decl:initial():operand() == 1)
-  assert(decl:initial():operand(0):code() == gcc.VAR_DECL)
-  assert(decl:initial():operand(0):name():value() == "const_char")
-  assert(not pcall(decl:initial().operand, decl:initial(), -1))
-  assert(not pcall(decl:initial().operand, decl:initial(), 1))
+  assert(#{decl:initial():operand()} == 1)
+  assert(decl:initial():operand():code() == gcc.VAR_DECL)
+  assert(decl:initial():operand():name():value() == "const_char")
 end
