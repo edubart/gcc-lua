@@ -77,6 +77,12 @@ Globals
 
    Returns variable declarations in current translation unit, in *reverse* order.
 
+.. function:: get_identifier(s)
+
+   :returns: tree node of code :class:`identifier_node <IdentifierNode>`
+
+   Returns identifier node for given string.
+
 Tree Node
 ---------
 

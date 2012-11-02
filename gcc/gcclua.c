@@ -884,6 +884,14 @@ static int gcclua_get_variables(lua_State *L)
   return 1;
 }
 
+static int gcclua_get_identifier(lua_State *L)
+{
+  const char *s;
+  s = luaL_checkstring(L, 1);
+  gcclua_tree_new(L, get_identifier(s));
+  return 1;
+}
+
 static const luaL_Reg gcclua_tree[] = {
   {"class",      gcclua_tree_get_code_class},
   {"class_name", gcclua_tree_get_code_class_name},
@@ -1094,6 +1102,7 @@ static const luaL_Reg gcclua[] = {
   {"get_translation_units",  gcclua_get_translation_units},
   {"get_functions",          gcclua_get_functions},
   {"get_variables",          gcclua_get_variables},
+  {"get_identifier",         gcclua_get_identifier},
   {NULL, NULL},
 };
 
