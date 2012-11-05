@@ -6,6 +6,12 @@
 
 #include <complex.h>
 #include <stdbool.h>
+#include <stdint.h>
+
+/* constants */
+uint64_t fibonacci = 806515533049393ULL;
+double pi = 3.14159265358979323846;
+char const euler_mascheroni[] = "0.577215664901532860606512090082402431042159";
 
 /* pointer and array */
 typedef long troposphere_t;

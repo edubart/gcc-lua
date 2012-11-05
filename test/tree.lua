@@ -19,6 +19,25 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
   end
 end)
 
+-- constants
+function test.fibonacci(decl)
+  assert(decl:code() == gcc.VAR_DECL)
+  assert(decl:initial():code() == gcc.INTEGER_CST)
+  assert(decl:initial():value() == 806515533049393)
+end
+
+function test.pi(decl)
+  assert(decl:code() == gcc.VAR_DECL)
+  assert(decl:initial():code() == gcc.REAL_CST)
+  assert(decl:initial():value() == 3.14159265358979323846)
+end
+
+function test.euler_mascheroni(decl)
+  assert(decl:code() == gcc.VAR_DECL)
+  assert(decl:initial():code() == gcc.STRING_CST)
+  assert(decl:initial():value() == "0.577215664901532860606512090082402431042159")
+end
+
 -- pointer and array
 function test.pointer_to_troposphere_t(decl)
   assert(decl:code() == gcc.VAR_DECL)

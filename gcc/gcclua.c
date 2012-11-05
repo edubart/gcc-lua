@@ -448,13 +448,14 @@ static int gcclua_tree_get_real_cst(lua_State *L)
 #if DOUBLE_TYPE_SIZE == 64
   long buf[2];
   union {
-    uint64_t i;
+    uint32_t i[2];
     double d;
   } u;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
   REAL_VALUE_TO_TARGET_DOUBLE(TREE_REAL_CST(*t), buf);
-  u.i = ((uint64_t)(buf[1] & 0xffffffff)) << 32 | (buf[0] & 0xffffffff);
+  u.i[0] = (buf[0] & 0xffffffff);
+  u.i[1] = (buf[1] & 0xffffffff);
   lua_pushnumber(L, u.d);
 #else
 #error unsupported DOUBLE_TYPE_SIZE
