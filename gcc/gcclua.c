@@ -1160,7 +1160,7 @@ static int gcclua_loadlib(lua_State *L)
   for (i = 0; i < MAX_TREE_CODES; ++i) {
     lua_pushlightuserdata(L, &gcclua_tree_cache[i]);
     lua_newtable(L);
-    lua_createtable(L, 1, 0);
+    lua_pushvalue(L, -1);
     lua_pushliteral(L, "v");
     lua_setfield(L, -2, "__mode");
     lua_setmetatable(L, -2);
