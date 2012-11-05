@@ -239,6 +239,33 @@ function test.const_pointer_to_mesosphere_t(decl)
   assert(decl:type():type():name():name():value() == "mesosphere_t")
 end
 
+-- bitfield
+function test.bitfield(decl)
+  assert(decl:code() == gcc.VAR_DECL)
+  assert(decl:type():code() == gcc.RECORD_TYPE)
+  assert(decl:type():fields():bit_field() == true)
+  assert(decl:type():fields():bit_field_type():name():name():value() == "unsigned int")
+  assert(decl:type():fields():name():value() == "unsigned_int_bitfield")
+  assert(decl:type():fields():size():value() == 1)
+  assert(decl:type():fields():chain():bit_field() == true)
+  assert(decl:type():fields():chain():bit_field_type():name():name():value() == "int")
+  assert(decl:type():fields():chain():name():value() == "signed_int_bitfield")
+  assert(decl:type():fields():chain():size():value() == 2)
+  assert(decl:type():fields():chain():chain():bit_field() == true)
+  assert(decl:type():fields():chain():chain():bit_field_type():name():name():value() == "unsigned int")
+  assert(decl:type():fields():chain():chain():name() == nil)
+  assert(decl:type():fields():chain():chain():size():value() == 3)
+  assert(decl:type():fields():chain():chain():chain():bit_field() == true)
+  assert(decl:type():fields():chain():chain():chain():bit_field_type():name():name():value() == "int")
+  assert(decl:type():fields():chain():chain():chain():name() == nil)
+  assert(decl:type():fields():chain():chain():chain():size():value() == 4)
+  assert(decl:type():fields():chain():chain():chain():chain():bit_field() == false)
+  assert(decl:type():fields():chain():chain():chain():chain():bit_field_type() == nil)
+  assert(decl:type():fields():chain():chain():chain():chain():name():value() == "unsigned_short")
+  assert(decl:type():fields():chain():chain():chain():chain():type():name():name():value() == "short unsigned int")
+  assert(decl:type():fields():chain():chain():chain():chain():chain() == nil)
+end
+
 -- vector
 function test.vector_2_of_double(decl)
   assert(decl:code() == gcc.VAR_DECL)

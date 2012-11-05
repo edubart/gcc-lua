@@ -33,6 +33,15 @@ typedef struct mesosphere mesosphere_t;
 struct mesosphere *const const_pointer_to_struct_mesosphere;
 mesosphere_t *const const_pointer_to_mesosphere_t;
 
+/* bitfield */
+struct {
+  unsigned int unsigned_int_bitfield : 1;
+  int signed_int_bitfield : 2;
+  unsigned int : 3;
+  int : 4;
+  unsigned short unsigned_short;
+} bitfield;
+
 /* vector */
 double vector_2_of_double __attribute__((vector_size(16)));
 int vector_8_of_int __attribute__((vector_size(32)));

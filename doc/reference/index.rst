@@ -318,6 +318,14 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of attributes.
 
+   .. method:: bit_field()
+
+      Returns ``true`` if field is a bitfield, or ``false`` otherwise.
+
+   .. method:: bit_field_type()
+
+      Returns tree node of type specified for a bitfield.
+
    .. method:: initial()
 
       Returns initial value.

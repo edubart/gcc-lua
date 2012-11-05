@@ -244,6 +244,29 @@ static int gcclua_tree_get_decl_arguments(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_decl_bit_field(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  lua_pushboolean(L, DECL_BIT_FIELD(*t));
+  return 1;
+}
+
+static int gcclua_tree_get_decl_bit_field_type(lua_State *L)
+{
+  const tree *t;
+  tree child;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  child = DECL_BIT_FIELD_TYPE(*t);
+  if (!child) {
+    return 0;
+  }
+  gcclua_tree_new(L, child);
+  return 1;
+}
+
 static int gcclua_tree_get_decl_chain(lua_State *L)
 {
   const tree *t;
@@ -990,13 +1013,15 @@ static const luaL_Reg gcclua_enumeral_type[] = {
 };
 
 static const luaL_Reg gcclua_field_decl[] = {
-  {"align",      gcclua_tree_get_decl_align},
-  {"align_unit", gcclua_tree_get_decl_align_unit},
-  {"attributes", gcclua_tree_get_decl_attributes},
-  {"initial",    gcclua_tree_get_decl_initial},
-  {"size",       gcclua_tree_get_decl_size},
-  {"size_unit",  gcclua_tree_get_decl_size_unit},
-  {"user_align", gcclua_tree_get_decl_user_align},
+  {"align",          gcclua_tree_get_decl_align},
+  {"align_unit",     gcclua_tree_get_decl_align_unit},
+  {"attributes",     gcclua_tree_get_decl_attributes},
+  {"bit_field",      gcclua_tree_get_decl_bit_field},
+  {"bit_field_type", gcclua_tree_get_decl_bit_field_type},
+  {"initial",        gcclua_tree_get_decl_initial},
+  {"size",           gcclua_tree_get_decl_size},
+  {"size_unit",      gcclua_tree_get_decl_size_unit},
+  {"user_align",     gcclua_tree_get_decl_user_align},
   {NULL, NULL},
 };
 
