@@ -70,6 +70,10 @@ struct {
   int s[4];
 } default_align;
 
+/* attributes */
+typedef int user_aligned_int_t __attribute__((aligned(8)));
+user_aligned_int_t user_aligned_int __attribute__((unused));
+
 /* function */
 void (*function_int_returning_void)(int);
 

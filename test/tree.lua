@@ -371,6 +371,21 @@ function test.default_align(decl)
   assert(decl:type():align_unit() == 4)
 end
 
+-- attributes
+function test.user_aligned_int(decl)
+  assert(decl:type():name():code() == gcc.TYPE_DECL)
+  assert(decl:type():name():attributes():code() == gcc.TREE_LIST)
+  assert(decl:type():name():attributes():purpose():value() == "aligned")
+  assert(decl:type():name():attributes():value():code() == gcc.TREE_LIST)
+  assert(decl:type():name():attributes():value():value():code() == gcc.INTEGER_CST)
+  assert(decl:type():name():attributes():value():value():value() == 8)
+  assert(decl:type():name():attributes():chain() == nil)
+  assert(decl:attributes():code() == gcc.TREE_LIST)
+  assert(decl:attributes():purpose():value() == "unused")
+  assert(decl:attributes():value() == nil)
+  assert(decl:attributes():chain() == nil)
+end
+
 -- function
 function test.function_int_returning_void(decl)
   assert(decl:type():code() == gcc.POINTER_TYPE)

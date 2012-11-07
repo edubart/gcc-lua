@@ -1094,7 +1094,8 @@ static const luaL_Reg gcclua_tree_list[] = {
 };
 
 static const luaL_Reg gcclua_type_decl[] = {
-  {"extern", gcclua_tree_get_public},
+  {"attributes", gcclua_tree_get_decl_attributes},
+  {"extern",     gcclua_tree_get_public},
   {NULL, NULL},
 };
 

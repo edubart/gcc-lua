@@ -470,6 +470,10 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Type declaration.
 
+   .. method:: attributes()
+
+      Returns tree node of attributes.
+
    .. method:: extern()
 
       Returns ``true`` if type has external visibility, or ``false`` otherwise.
