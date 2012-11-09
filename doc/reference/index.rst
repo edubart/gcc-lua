@@ -187,6 +187,12 @@ inherits from :class:`gcc.Tree`.
 
       Returns tree node of attributes.
 
+   .. method:: canonical()
+
+      Returns tree node of canonical type.
+
+      The canonical type includes qualifiers.
+
    .. method:: const()
 
       Returns ``true`` if type has ``const`` qualifier, or ``false`` otherwise.
@@ -194,6 +200,8 @@ inherits from :class:`gcc.Tree`.
    .. method:: main_variant()
 
       Returns tree node of main variant of type.
+
+      The main variant excludes qualifiers.
 
    .. method:: name()
 

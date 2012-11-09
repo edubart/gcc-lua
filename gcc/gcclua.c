@@ -577,6 +577,20 @@ static int gcclua_tree_get_type_attributes(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_type_canonical(lua_State *L)
+{
+  const tree *t;
+  tree child;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  child = TYPE_CANONICAL(*t);
+  if (!child) {
+    return 0;
+  }
+  gcclua_tree_new(L, child);
+  return 1;
+}
+
 static int gcclua_tree_get_type_const(lua_State *L)
 {
   const tree *t;
@@ -958,6 +972,7 @@ static const luaL_Reg gcclua_type[] = {
   {"align",        gcclua_tree_get_type_align},
   {"align_unit",   gcclua_tree_get_type_align_unit},
   {"attributes",   gcclua_tree_get_type_attributes},
+  {"canonical",    gcclua_tree_get_type_canonical},
   {"const",        gcclua_tree_get_type_const},
   {"main_variant", gcclua_tree_get_type_main_variant},
   {"name",         gcclua_tree_get_type_name},
