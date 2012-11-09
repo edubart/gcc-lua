@@ -4,12 +4,8 @@
  * For conditions of distribution and use, see copyright notice in LICENSE.
  */
 
-#include <complex.h>
-#include <stdbool.h>
-#include <stdint.h>
-
 /* constants */
-uint64_t fibonacci = 806515533049393ULL;
+unsigned long long fibonacci = 806515533049393ULL;
 double pi = 3.14159265358979323846;
 char const euler_mascheroni[] = "0.577215664901532860606512090082402431042159";
 
@@ -27,8 +23,8 @@ troposphere_t (*(*pointer_to_array_4_of_pointer_to_array_5_of_int)[4])[5];
 const char const_char;
 const volatile float const_volatile_float;
 void *const restrict const_restrict_pointer_to_void;
-complex double *volatile *const restrict const_restrict_pointer_to_volatile_pointer_to_complex_double;
-volatile bool *restrict (*const array_2_of_const_pointer_to_array_3_of_restrict_pointer_to_volatile_bool[2])[3];
+double _Complex *volatile *const restrict const_restrict_pointer_to_volatile_pointer_to_complex_double;
+volatile _Bool *restrict (*const array_2_of_const_pointer_to_array_3_of_restrict_pointer_to_volatile_bool[2])[3];
 
 /* enum and struct */
 enum stratosphere { STRATOSPHERE_MIN = 10000, STRATOSPHERE_MAX = 50000 };
