@@ -216,6 +216,15 @@ static int gcclua_tree_get_decl_assembler_name(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_decl_artificial(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  lua_pushboolean(L, DECL_ARTIFICIAL(*t));
+  return 1;
+}
+
 static int gcclua_tree_get_decl_attributes(lua_State *L)
 {
   const tree *t;
@@ -937,6 +946,7 @@ static const luaL_Reg gcclua_constant[] = {
 
 static const luaL_Reg gcclua_declaration[] = {
   {"assembler_name", gcclua_tree_get_decl_assembler_name},
+  {"artificial",     gcclua_tree_get_decl_artificial},
   {"chain",          gcclua_tree_get_decl_chain},
   {"name",           gcclua_tree_get_decl_name},
   {"location",       gcclua_tree_get_decl_source_location},

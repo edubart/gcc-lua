@@ -152,6 +152,11 @@ inherits from :class:`gcc.Tree`.
 
       Returns tree node of assembler name.
 
+   .. method:: artificial()
+
+      Returns ``true`` if declaration is a compiler-generated entity, or
+      ``false`` otherwise.
+
    .. method:: chain()
 
       Returns tree node of next declaration.
