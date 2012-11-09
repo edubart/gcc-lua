@@ -59,6 +59,14 @@ Globals
 
    Filename of a device that discards data written to it, e.g., ``/dev/null``.
 
+.. function:: get_main_input_basename()
+
+   Returns main input filename with any leading directory components removed.
+
+.. function:: get_main_input_filename()
+
+   Returns main input filename.
+
 .. function:: get_translation_units()
 
    :returns: sequence of tree nodes of code :class:`translation_unit_decl <TranslationUnitDecl>`

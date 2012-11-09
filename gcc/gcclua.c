@@ -895,6 +895,18 @@ static int gcclua_set_asm_file_name(lua_State *L)
   return 0;
 }
 
+static int gcclua_get_main_input_basename(lua_State *L)
+{
+  lua_pushstring(L, main_input_basename);
+  return 1;
+}
+
+static int gcclua_get_main_input_filename(lua_State *L)
+{
+  lua_pushstring(L, main_input_filename);
+  return 1;
+}
+
 static int gcclua_get_translation_units(lua_State *L)
 {
   tree t;
@@ -1148,13 +1160,15 @@ static const luaL_Reg gcclua_vector_type[] = {
 };
 
 static const luaL_Reg gcclua[] = {
-  {"register_callback",      gcclua_register_callback},
-  {"get_asm_file_name",      gcclua_get_asm_file_name},
-  {"set_asm_file_name",      gcclua_set_asm_file_name},
-  {"get_translation_units",  gcclua_get_translation_units},
-  {"get_functions",          gcclua_get_functions},
-  {"get_variables",          gcclua_get_variables},
-  {"get_identifier",         gcclua_get_identifier},
+  {"register_callback",       gcclua_register_callback},
+  {"get_asm_file_name",       gcclua_get_asm_file_name},
+  {"set_asm_file_name",       gcclua_set_asm_file_name},
+  {"get_main_input_basename", gcclua_get_main_input_basename},
+  {"get_main_input_filename", gcclua_get_main_input_filename},
+  {"get_translation_units",   gcclua_get_translation_units},
+  {"get_functions",           gcclua_get_functions},
+  {"get_variables",           gcclua_get_variables},
+  {"get_identifier",          gcclua_get_identifier},
   {NULL, NULL},
 };
 

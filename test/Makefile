@@ -11,4 +11,4 @@ GCCLUA = $(CURDIR)/../gcc/gcclua.so
 all: event globals tree
 
 %: %.c %.lua
-	$(CC) -S $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua $<
+	$(CC) -S $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<

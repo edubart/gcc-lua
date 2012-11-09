@@ -11,6 +11,8 @@ assert(arg.script == "globals.lua")
 assert(gcc.get_asm_file_name() == "globals.s")
 gcc.set_asm_file_name(gcc.HOST_BIT_BUCKET)
 assert(gcc.get_asm_file_name() == gcc.HOST_BIT_BUCKET)
+assert(gcc.get_main_input_basename() == "globals.c")
+assert(gcc.get_main_input_filename() == "./globals.c")
 
 gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
   do
