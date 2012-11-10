@@ -17,6 +17,7 @@ end)
 gcc.register_callback(gcc.PLUGIN_FINISH_TYPE, function(decl)
   assert(decl:class_name() == "type")
   assert(decl:code_name() == "union_type")
+  assert(decl:fields():class_name() == "declaration")
   assert(decl:fields():code_name() == "field_decl")
   assert(decl:fields():name():value() == "up")
   assert(decl:fields():chain():name():value() == "charm")
@@ -27,7 +28,9 @@ end)
 gcc.register_callback(gcc.PLUGIN_PRE_GENERICIZE, function(decl)
   assert(decl:class_name() == "declaration")
   assert(decl:code_name() == "function_decl")
+  assert(decl:body():class_name() == "expression")
   assert(decl:body():code_name() == "bind_expr")
+  assert(decl:body():vars():class_name() == "declaration")
   assert(decl:body():vars():code_name() == "var_decl")
   assert(decl:body():vars():name():value() == "down")
   assert(decl:body():vars():chain():name():value() == "strange")
@@ -50,6 +53,7 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
   do
     local event, decl = unpack(table.remove(result))
     assert(event == "PLUGIN_PRE_GENERICIZE")
+    assert(decl:class_name() == "declaration")
     assert(decl:code_name() == "function_decl")
     assert(decl:name():value() == "down_strange_bottom_quarks")
   end
@@ -57,31 +61,38 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "var_decl")
       assert(decl:name():value() == "bottom")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "var_decl")
       assert(decl:name():value() == "strange")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "var_decl")
       assert(decl:name():value() == "down")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "parm_decl")
+      assert(decl:type():class_name() == "type")
       assert(decl:type():code_name() == "void_type")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "type_decl")
+      assert(decl:type():class_name() == "type")
       assert(decl:type():code_name() == "union_type")
       assert(decl:name():value() == "up_charm_top_quarks")
     end
@@ -89,6 +100,7 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
   do
     local event, decl = unpack(table.remove(result))
     assert(event == "PLUGIN_FINISH_TYPE")
+    assert(decl:class_name() == "type")
     assert(decl:code_name() == "union_type")
     assert(decl:name() == nil)
   end
@@ -96,18 +108,21 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "field_decl")
       assert(decl:name():value() == "top")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "field_decl")
       assert(decl:name():value() == "charm")
     end
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
+      assert(decl:class_name() == "declaration")
       assert(decl:code_name() == "field_decl")
       assert(decl:name():value() == "up")
     end
