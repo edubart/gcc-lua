@@ -75,3 +75,6 @@ void (*function_int_returning_void)(int);
 
 /* operand */
 const char *address_of_const_char = &const_char;
+
+/* constructor */
+int array_initializer[] = {0, 1, 1, 2, 3, 5, 8};

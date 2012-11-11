@@ -185,6 +185,21 @@ static int gcclua_tree_get_code_class_name(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_constructor_elts(lua_State *L)
+{
+  const tree *t;
+  int i, n;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  n = CONSTRUCTOR_NELTS(*t);
+  lua_createtable(L, n, 0);
+  for (i = 0; i < n; i++) {
+    gcclua_tree_new(L, CONSTRUCTOR_ELT(*t, i)->value);
+    lua_rawseti(L, -2, i + 1);
+  }
+  return 1;
+}
+
 static int gcclua_tree_get_decl_align(lua_State *L)
 {
   const tree *t;
@@ -1056,6 +1071,11 @@ static const luaL_Reg gcclua_block[] = {
   {NULL, NULL},
 };
 
+static const luaL_Reg gcclua_constructor[] = {
+  {"elements", gcclua_tree_get_constructor_elts},
+  {NULL, NULL},
+};
+
 static const luaL_Reg gcclua_const_decl[] = {
   {"initial",    gcclua_tree_get_decl_initial},
   {NULL, NULL},
@@ -1204,6 +1224,7 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {gcclua_array_type,            ARRAY_TYPE},
   {gcclua_bind_expr,             BIND_EXPR},
   {gcclua_block,                 BLOCK},
+  {gcclua_constructor,           CONSTRUCTOR},
   {gcclua_const_decl,            CONST_DECL},
   {gcclua_enumeral_type,         ENUMERAL_TYPE},
   {gcclua_field_decl,            FIELD_DECL},

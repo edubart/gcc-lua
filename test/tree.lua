@@ -548,3 +548,17 @@ function test.address_of_const_char(decl)
   assert(decl:initial():operand():code() == gcc.VAR_DECL)
   assert(decl:initial():operand():name():value() == "const_char")
 end
+
+-- constructor
+function test.array_initializer(decl)
+  assert(decl:initial():class() == gcc.EXCEPTIONAL)
+  assert(decl:initial():code() == gcc.CONSTRUCTOR)
+  assert(#decl:initial():elements() == 7)
+  local j, k = 0, 1
+  for i = 1, 7 do
+    assert(decl:initial():elements()[i]:class() == gcc.CONSTANT)
+    assert(decl:initial():elements()[i]:code() == gcc.INTEGER_CST)
+    assert(decl:initial():elements()[i]:value() == j)
+    j, k = k, j + k
+  end
+end

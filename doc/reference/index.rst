@@ -307,6 +307,14 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of chain of declarations.
 
+.. class:: Constructor
+
+   Array or struct initializer list.
+
+   .. method:: elements()
+
+      Returns sequence of tree nodes of constructor elements.
+
 .. class:: ConstDecl
 
    C enum value.
