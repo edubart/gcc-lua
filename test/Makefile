@@ -4,11 +4,16 @@
 # For conditions of distribution and use, see copyright notice in LICENSE.
 #
 
-CC     = gcc
-CFLAGS = -std=c99 -Wall -pedantic
-GCCLUA = $(CURDIR)/../gcc/gcclua.so
+CC       = gcc
+CFLAGS   = -std=c99 -Wall -pedantic
+CXX      = g++
+CXXFLAGS = -std=c++98 -Wall -pedantic
+GCCLUA   = $(CURDIR)/../gcc/gcclua.so
 
-all: event globals tree
+all: event globals tree tree-cp
 
 %: %.c %.lua
 	$(CC) -S $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
+
+%: %.cxx %.lua
+	$(CXX) -S $(CXXFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<

@@ -6,6 +6,7 @@
 
 #include "gcc-plugin.h"
 #include "cgraph.h"
+#include "cp/cp-tree.h"
 #include "diagnostic.h"
 #include "tree.h"
 #include "tree-iterator.h"
@@ -28,6 +29,9 @@ extern "C" {
 
 /* http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses */
 int plugin_is_GPL_compatible;
+
+/* weak symbol is non-NULL for C++ frontend */
+__typeof__(namespace_binding) namespace_binding __attribute__((weak));
 
 /* registry keys for tree userdata cache per tree code */
 static char gcclua_tree_cache[MAX_TREE_CODES];
@@ -549,6 +553,18 @@ static int gcclua_tree_get_type_align_unit(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_type_anonymous(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  if (!namespace_binding) {
+    return 0;
+  }
+  lua_pushboolean(L, TYPE_ANONYMOUS_P(*t));
+  return 1;
+}
+
 static int gcclua_tree_get_type_arg_types(lua_State *L)
 {
   const tree *t;
@@ -1046,7 +1062,9 @@ static const luaL_Reg gcclua_const_decl[] = {
 };
 
 static const luaL_Reg gcclua_enumeral_type[] = {
-  {"values", gcclua_tree_get_type_values},
+  {"values",    gcclua_tree_get_type_values},
+  /* C++ frontend */
+  {"anonymous", gcclua_tree_get_type_anonymous},
   {NULL, NULL},
 };
 
@@ -1103,7 +1121,9 @@ static const luaL_Reg gcclua_real_cst[] = {
 };
 
 static const luaL_Reg gcclua_record_type[] = {
-  {"fields", gcclua_tree_get_type_fields},
+  {"fields",    gcclua_tree_get_type_fields},
+  /* C++ frontend */
+  {"anonymous", gcclua_tree_get_type_anonymous},
   {NULL, NULL},
 };
 
@@ -1131,13 +1151,15 @@ static const luaL_Reg gcclua_tree_list[] = {
 };
 
 static const luaL_Reg gcclua_type_decl[] = {
-  {"attributes", gcclua_tree_get_decl_attributes},
-  {"extern",     gcclua_tree_get_public},
+  {"attributes",     gcclua_tree_get_decl_attributes},
+  {"extern",         gcclua_tree_get_public},
   {NULL, NULL},
 };
 
 static const luaL_Reg gcclua_union_type[] = {
-  {"fields", gcclua_tree_get_type_fields},
+  {"fields",    gcclua_tree_get_type_fields},
+  /* C++ frontend */
+  {"anonymous", gcclua_tree_get_type_anonymous},
   {NULL, NULL},
 };
 

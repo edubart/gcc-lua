@@ -323,6 +323,12 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of enum values.
 
+   The following attributes are available with the C++ frontend.
+
+   .. method:: anonymous()
+
+      Returns ``true`` if enum is unnamed, or ``false`` otherwise.
+
 .. class:: FieldDecl
 
    C struct or union field.
@@ -443,6 +449,12 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of struct fields.
 
+   The following attributes are available with the C++ frontend.
+
+   .. method:: anonymous()
+
+      Returns ``true`` if struct is unnamed, or ``false`` otherwise.
+
 .. class:: StatementList
 
    Statement list.
@@ -506,6 +518,12 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
    .. method:: fields()
 
       Returns tree node of union fields.
+
+   The following attributes are available with the C++ frontend.
+
+   .. method:: anonymous()
+
+      Returns ``true`` if union is unnamed, or ``false`` otherwise.
 
 .. class:: VarDecl
 
