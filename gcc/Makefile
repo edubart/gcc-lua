@@ -13,7 +13,7 @@ CFLAGS   = -fPIC -O2 -Wall -pedantic -std=c99
 else
 LD       = gcc
 CPPFLAGS = -I`$(CXX) -print-file-name=plugin`/include
-CXXFLAGS = -fPIC -O2 -Wall -pedantic -fno-exceptions -std=c++98
+CXXFLAGS = -fPIC -O2 -Wall -pedantic -fno-exceptions -std=c++98 -Wno-long-long
 endif
 LDFLAGS  = -shared -Wl,-s
 LUALIBS  = -llua
