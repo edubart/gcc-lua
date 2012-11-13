@@ -433,6 +433,14 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of minimum value.
 
+.. class:: ModifyExpr
+
+   Assignment expression.
+
+   .. method:: operand()
+
+      Returns tree nodes of left value and right value.
+
 .. class:: PointerType
 
    Pointer type.
@@ -462,6 +470,14 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
    .. method:: anonymous()
 
       Returns ``true`` if struct is unnamed, or ``false`` otherwise.
+
+.. class:: ReturnExpr
+
+   Return statement.
+
+   .. method:: operand()
+
+      Returns tree node of return value.
 
 .. class:: StatementList
 

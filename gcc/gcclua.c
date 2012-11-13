@@ -1130,6 +1130,11 @@ static const luaL_Reg gcclua_integer_type[] = {
   {NULL, NULL},
 };
 
+static const luaL_Reg gcclua_modify_expr[] = {
+  {"operand", gcclua_tree_get_operand},
+  {NULL, NULL},
+};
+
 static const luaL_Reg gcclua_pointer_type[] = {
   {"type", gcclua_tree_get_type},
   {NULL, NULL},
@@ -1144,6 +1149,11 @@ static const luaL_Reg gcclua_record_type[] = {
   {"fields",    gcclua_tree_get_type_fields},
   /* C++ frontend */
   {"anonymous", gcclua_tree_get_type_anonymous},
+  {NULL, NULL},
+};
+
+static const luaL_Reg gcclua_return_expr[] = {
+  {"operand", gcclua_tree_get_operand},
   {NULL, NULL},
 };
 
@@ -1233,9 +1243,11 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {gcclua_identifier_node,       IDENTIFIER_NODE},
   {gcclua_integer_cst,           INTEGER_CST},
   {gcclua_integer_type,          INTEGER_TYPE},
+  {gcclua_modify_expr,           MODIFY_EXPR},
   {gcclua_pointer_type,          POINTER_TYPE},
   {gcclua_real_cst,              REAL_CST},
   {gcclua_record_type,           RECORD_TYPE},
+  {gcclua_return_expr,           RETURN_EXPR},
   {gcclua_statement_list,        STATEMENT_LIST},
   {gcclua_string_cst,            STRING_CST},
   {gcclua_translation_unit_decl, TRANSLATION_UNIT_DECL},
