@@ -1152,6 +1152,11 @@ static const luaL_Reg gcclua_record_type[] = {
   {NULL, NULL},
 };
 
+static const luaL_Reg gcclua_reference_type[] = {
+  {"type", gcclua_tree_get_type},
+  {NULL, NULL},
+};
+
 static const luaL_Reg gcclua_return_expr[] = {
   {"operand", gcclua_tree_get_operand},
   {NULL, NULL},
@@ -1247,6 +1252,7 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {gcclua_pointer_type,          POINTER_TYPE},
   {gcclua_real_cst,              REAL_CST},
   {gcclua_record_type,           RECORD_TYPE},
+  {gcclua_reference_type,        REFERENCE_TYPE},
   {gcclua_return_expr,           RETURN_EXPR},
   {gcclua_statement_list,        STATEMENT_LIST},
   {gcclua_string_cst,            STRING_CST},

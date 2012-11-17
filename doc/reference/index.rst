@@ -471,6 +471,14 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns ``true`` if struct is unnamed, or ``false`` otherwise.
 
+.. class:: ReferenceType
+
+   Reference type.
+
+   .. method:: type()
+
+      Returns tree node of referenced type.
+
 .. class:: ReturnExpr
 
    Return statement.
