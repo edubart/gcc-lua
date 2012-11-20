@@ -1002,12 +1002,18 @@ static const luaL_Reg gcclua_constant[] = {
 };
 
 static const luaL_Reg gcclua_declaration[] = {
-  {"assembler_name", gcclua_tree_get_decl_assembler_name},
+  {"align",          gcclua_tree_get_decl_align},
+  {"align_unit",     gcclua_tree_get_decl_align_unit},
   {"artificial",     gcclua_tree_get_decl_artificial},
+  {"assembler_name", gcclua_tree_get_decl_assembler_name},
+  {"attributes",     gcclua_tree_get_decl_attributes},
   {"chain",          gcclua_tree_get_decl_chain},
-  {"name",           gcclua_tree_get_decl_name},
   {"location",       gcclua_tree_get_decl_source_location},
+  {"name",           gcclua_tree_get_decl_name},
+  {"size",           gcclua_tree_get_decl_size},
+  {"size_unit",      gcclua_tree_get_decl_size_unit},
   {"type",           gcclua_tree_get_type},
+  {"user_align",     gcclua_tree_get_decl_user_align},
   {NULL, NULL},
 };
 
@@ -1089,15 +1095,9 @@ static const luaL_Reg gcclua_enumeral_type[] = {
 };
 
 static const luaL_Reg gcclua_field_decl[] = {
-  {"align",          gcclua_tree_get_decl_align},
-  {"align_unit",     gcclua_tree_get_decl_align_unit},
-  {"attributes",     gcclua_tree_get_decl_attributes},
   {"bit_field",      gcclua_tree_get_decl_bit_field},
   {"bit_field_type", gcclua_tree_get_decl_bit_field_type},
   {"initial",        gcclua_tree_get_decl_initial},
-  {"size",           gcclua_tree_get_decl_size},
-  {"size_unit",      gcclua_tree_get_decl_size_unit},
-  {"user_align",     gcclua_tree_get_decl_user_align},
   {NULL, NULL},
 };
 
@@ -1186,7 +1186,6 @@ static const luaL_Reg gcclua_tree_list[] = {
 };
 
 static const luaL_Reg gcclua_type_decl[] = {
-  {"attributes",     gcclua_tree_get_decl_attributes},
   {"extern",         gcclua_tree_get_public},
   {NULL, NULL},
 };
@@ -1199,14 +1198,8 @@ static const luaL_Reg gcclua_union_type[] = {
 };
 
 static const luaL_Reg gcclua_var_decl[] = {
-  {"align",      gcclua_tree_get_decl_align},
-  {"align_unit", gcclua_tree_get_decl_align_unit},
-  {"attributes", gcclua_tree_get_decl_attributes},
   {"extern",     gcclua_tree_get_public},
   {"initial",    gcclua_tree_get_decl_initial},
-  {"size",       gcclua_tree_get_decl_size},
-  {"size_unit",  gcclua_tree_get_decl_size_unit},
-  {"user_align", gcclua_tree_get_decl_user_align},
   {NULL, NULL},
 };
 

@@ -156,6 +156,14 @@ inherits from :class:`gcc.Tree`.
 
 .. class:: Declaration
 
+   .. method:: align()
+
+      Returns alignment in bits.
+
+   .. method:: align_unit()
+
+      Returns alignment in bytes.
+
    .. method:: assembler_name()
 
       Returns tree node of assembler name.
@@ -164,6 +172,10 @@ inherits from :class:`gcc.Tree`.
 
       Returns ``true`` if declaration is a compiler-generated entity, or
       ``false`` otherwise.
+
+   .. method:: attributes()
+
+      Returns tree node of attributes.
 
    .. method:: chain()
 
@@ -177,9 +189,21 @@ inherits from :class:`gcc.Tree`.
 
       Returns filename and line number.
 
+   .. method:: size()
+
+      Returns size in bits.
+
+   .. method:: size_unit()
+
+      Returns size in bytes.
+
    .. method:: type()
 
       Returns tree node of type of declaration.
+
+   .. method:: user_align()
+
+      Returns ``true`` if declaration has user-defined alignment, or ``false`` otherwise.
 
 .. class:: Type
 
@@ -341,18 +365,6 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    C struct or union field.
 
-   .. method:: align()
-
-      Returns alignment in bits.
-
-   .. method:: align_unit()
-
-      Returns alignment in bytes.
-
-   .. method:: attributes()
-
-      Returns tree node of attributes.
-
    .. method:: bit_field()
 
       Returns ``true`` if field is a bitfield, or ``false`` otherwise.
@@ -364,18 +376,6 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
    .. method:: initial()
 
       Returns initial value.
-
-   .. method:: size()
-
-      Returns size in bits.
-
-   .. method:: size_unit()
-
-      Returns size in bytes.
-
-   .. method:: user_align()
-
-      Returns ``true`` if type has user-defined alignment, or ``false`` otherwise.
 
 .. class:: FunctionDecl
 
@@ -535,10 +535,6 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Type declaration.
 
-   .. method:: attributes()
-
-      Returns tree node of attributes.
-
    .. method:: extern()
 
       Returns ``true`` if type has external visibility, or ``false`` otherwise.
@@ -561,18 +557,6 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Variable declaration.
 
-   .. method:: align()
-
-      Returns alignment in bits.
-
-   .. method:: align_unit()
-
-      Returns alignment in bytes.
-
-   .. method:: attributes()
-
-      Returns tree node of attributes.
-
    .. method:: extern()
 
       Returns ``true`` if variable has external visibility, or ``false`` otherwise.
@@ -580,18 +564,6 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
    .. method:: initial()
 
       Returns tree node of initial value.
-
-   .. method:: size()
-
-      Returns size in bits.
-
-   .. method:: size_unit()
-
-      Returns size in bytes.
-
-   .. method:: user_align()
-
-      Returns ``true`` if variable has user-defined alignment, or ``false`` otherwise.
 
 .. class:: VectorType
 
