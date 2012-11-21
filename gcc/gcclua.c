@@ -761,6 +761,15 @@ static int gcclua_tree_get_type_size_unit(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_type_unsigned(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  lua_pushboolean(L, TYPE_UNSIGNED(*t));
+  return 1;
+}
+
 static int gcclua_tree_get_type_user_align(lua_State *L)
 {
   const tree *t;
@@ -1125,8 +1134,9 @@ static const luaL_Reg gcclua_integer_cst[] = {
 };
 
 static const luaL_Reg gcclua_integer_type[] = {
-  {"max", gcclua_tree_get_type_max_value},
-  {"min", gcclua_tree_get_type_min_value},
+  {"max",      gcclua_tree_get_type_max_value},
+  {"min",      gcclua_tree_get_type_min_value},
+  {"unsigned", gcclua_tree_get_type_unsigned},
   {NULL, NULL},
 };
 
@@ -1136,7 +1146,8 @@ static const luaL_Reg gcclua_modify_expr[] = {
 };
 
 static const luaL_Reg gcclua_pointer_type[] = {
-  {"type", gcclua_tree_get_type},
+  {"type",     gcclua_tree_get_type},
+  {"unsigned", gcclua_tree_get_type_unsigned},
   {NULL, NULL},
 };
 

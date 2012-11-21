@@ -433,6 +433,10 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of minimum value.
 
+   .. method:: unsigned()
+
+      Returns ``true`` if type is unsigned, or ``false`` otherwise.
+
 .. class:: ModifyExpr
 
    Assignment expression.
@@ -448,6 +452,10 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
    .. method:: type()
 
       Returns tree node of pointed type.
+
+   .. method:: unsigned()
+
+      Returns ``true`` if type is unsigned, or ``false`` otherwise.
 
 .. class:: RealCst
 
