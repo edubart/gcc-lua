@@ -383,7 +383,7 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of argument types.
 
-   .. method:: retn()
+   .. method:: type()
 
       Returns tree node of return type.
 

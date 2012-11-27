@@ -1097,7 +1097,7 @@ static const luaL_Reg gcclua_function_decl[] = {
 
 static const luaL_Reg gcclua_function_type[] = {
   {"args", gcclua_tree_get_type_arg_types},
-  {"retn", gcclua_tree_get_type},
+  {"type", gcclua_tree_get_type},
   {NULL, NULL},
 };
 
