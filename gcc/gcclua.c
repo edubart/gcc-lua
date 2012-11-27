@@ -141,15 +141,6 @@ static int gcclua_tree_get_chain(lua_State *L)
   return 1;
 }
 
-static int gcclua_tree_get_code(lua_State *L)
-{
-  const tree *t;
-  luaL_checktype(L, 1, LUA_TUSERDATA);
-  t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, TREE_CODE(*t));
-  return 1;
-}
-
 static int gcclua_tree_get_code_name(lua_State *L)
 {
   const tree *t;
@@ -158,17 +149,6 @@ static int gcclua_tree_get_code_name(lua_State *L)
   t = (const tree *)lua_touserdata(L, 1);
   code = TREE_CODE(*t);
   lua_pushstring(L, tree_code_name[(int)code]);
-  return 1;
-}
-
-static int gcclua_tree_get_code_class(lua_State *L)
-{
-  const tree *t;
-  enum tree_code code;
-  luaL_checktype(L, 1, LUA_TUSERDATA);
-  t = (const tree *)lua_touserdata(L, 1);
-  code = TREE_CODE(*t);
-  lua_pushinteger(L, TREE_CODE_CLASS(code));
   return 1;
 }
 
@@ -992,10 +972,8 @@ static int gcclua_get_identifier(lua_State *L)
 }
 
 static const luaL_Reg gcclua_tree[] = {
-  {"class",      gcclua_tree_get_code_class},
-  {"class_name", gcclua_tree_get_code_class_name},
-  {"code",       gcclua_tree_get_code},
-  {"code_name",  gcclua_tree_get_code_name},
+  {"class",      gcclua_tree_get_code_class_name},
+  {"code",       gcclua_tree_get_code_name},
   {NULL, NULL},
 };
 
@@ -1269,17 +1247,6 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {NULL},
 };
 
-static void gcclua_pushupper(lua_State *L, const char *s)
-{
-  char t[256];
-  int i, n;
-  n = sizeof(t);
-  for (i = 0; s[i] && i < n; i++) {
-    t[i] = TOUPPER(s[i]);
-  }
-  lua_pushlstring(L, t, i);
-}
-
 static int gcclua_loadlib(lua_State *L)
 {
   const struct gcclua_tree_code_class_reg *cls_reg;
@@ -1315,12 +1282,6 @@ static int gcclua_loadlib(lua_State *L)
       }
     }
     lua_rawset(L, LUA_REGISTRYINDEX);
-    gcclua_pushupper(L, tree_code_name[i]);
-    lua_pushnumber(L, i);
-    lua_rawset(L, -3);
-    gcclua_pushupper(L, TREE_CODE_CLASS_STRING(cls));
-    lua_pushnumber(L, cls);
-    lua_rawset(L, -3);
   }
   luaL_setfuncs(L, gcclua, 0);
   for (event = gcclua_plugin_event; event->name; event++) {

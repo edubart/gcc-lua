@@ -101,27 +101,9 @@ the following common attributes:
 
    .. method:: class()
 
-      Returns tree code class.
-
-      All tree class codes are defined as constants in the :mod:`gcc` module.
-
-      This function returns, e.g., :data:`gcc.DECLARATION` for a node of code
-      class :class:`declaration <Declaration>`.
-
-   .. method:: class_name()
-
       Returns tree code class name.
 
    .. method:: code()
-
-      Returns tree code.
-
-      All tree codes are defined as constants in the :mod:`gcc` module.
-
-      This function returns, e.g., :data:`gcc.VAR_DECL` for a node of code
-      :class:`var_decl <VarDecl>`.
-
-   .. method:: code_name()
 
       Returns tree code name.
 
