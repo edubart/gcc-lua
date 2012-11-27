@@ -365,7 +365,7 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    .. method:: args()
 
-      Returns tree node of argument types.
+      Returns tree node of argument declarations.
 
    .. method:: body()
 
