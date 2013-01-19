@@ -371,9 +371,13 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
       Returns tree node of body expression.
 
-   .. method:: extern()
+   .. method:: external()
 
-      Returns ``true`` if function has external visibility, or ``false`` otherwise.
+      Returns ``true`` if function refers to definition elsewhere, or ``false`` otherwise.
+
+   .. method:: public()
+
+      Returns ``true`` if function is accessible outside translation unit, or ``false`` otherwise.
 
 .. class:: FunctionType
 
@@ -525,9 +529,9 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Type declaration.
 
-   .. method:: extern()
+   .. method:: public()
 
-      Returns ``true`` if type has external visibility, or ``false`` otherwise.
+      Returns ``true`` if type is accessible outside translation unit, or ``false`` otherwise.
 
 .. class:: UnionType
 
@@ -547,13 +551,17 @@ from the code :meth:`class <gcc.Tree.class>` of the node.
 
    Variable declaration.
 
-   .. method:: extern()
+   .. method:: external()
 
-      Returns ``true`` if variable has external visibility, or ``false`` otherwise.
+      Returns ``true`` if variable refers to definition elsewhere, or ``false`` otherwise.
 
    .. method:: initial()
 
       Returns tree node of initial value.
+
+   .. method:: public()
+
+      Returns ``true`` if variable is accessible outside translation unit, or ``false`` otherwise.
 
 .. class:: VectorType
 

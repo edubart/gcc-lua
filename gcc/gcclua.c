@@ -289,6 +289,15 @@ static int gcclua_tree_get_decl_chain(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_decl_external(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  lua_pushboolean(L, DECL_EXTERNAL(*t));
+  return 1;
+}
+
 static int gcclua_tree_get_decl_initial(lua_State *L)
 {
   const tree *t;
@@ -1089,9 +1098,10 @@ static const luaL_Reg gcclua_field_decl[] = {
 };
 
 static const luaL_Reg gcclua_function_decl[] = {
-  {"args",   gcclua_tree_get_decl_arguments},
-  {"body",   gcclua_tree_get_decl_saved_tree},
-  {"extern", gcclua_tree_get_public},
+  {"args",     gcclua_tree_get_decl_arguments},
+  {"body",     gcclua_tree_get_decl_saved_tree},
+  {"external", gcclua_tree_get_decl_external},
+  {"public",   gcclua_tree_get_public},
   {NULL, NULL},
 };
 
@@ -1175,7 +1185,7 @@ static const luaL_Reg gcclua_tree_list[] = {
 };
 
 static const luaL_Reg gcclua_type_decl[] = {
-  {"extern",         gcclua_tree_get_public},
+  {"public", gcclua_tree_get_public},
   {NULL, NULL},
 };
 
@@ -1187,8 +1197,9 @@ static const luaL_Reg gcclua_union_type[] = {
 };
 
 static const luaL_Reg gcclua_var_decl[] = {
-  {"extern",     gcclua_tree_get_public},
-  {"initial",    gcclua_tree_get_decl_initial},
+  {"external", gcclua_tree_get_decl_external},
+  {"initial",  gcclua_tree_get_decl_initial},
+  {"public",   gcclua_tree_get_public},
   {NULL, NULL},
 };
 
