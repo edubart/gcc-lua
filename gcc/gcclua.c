@@ -27,6 +27,13 @@ extern "C" {
 #define luaL_setfuncs(L, l, nup) luaL_register(L, NULL, l)
 #endif
 
+#if GCC_VERSION <= 4007
+#undef FOR_EACH_VEC_ELT
+#define FOR_EACH_VEC_ELT(v, i, t) for (i = 0; VEC_iterate(tree, &(v), (i), (t)); ++(i))
+#define FOR_EACH_FUNCTION(node) for ((node) = cgraph_nodes; (node); (node) = (node)->next)
+#define FOR_EACH_VARIABLE(node) for ((node) = varpool_nodes; (node); (node) = (node)->next)
+#endif
+
 /* http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses */
 int plugin_is_GPL_compatible;
 
@@ -941,7 +948,8 @@ static int gcclua_get_translation_units(lua_State *L)
   tree t;
   int i;
   lua_newtable(L);
-  FOR_EACH_VEC_ELT(tree, all_translation_units, i, t) {
+  FOR_EACH_VEC_ELT(*all_translation_units, i, t)
+  {
     gcclua_tree_new(L, t);
     lua_rawseti(L, -2, i + 1);
   }
@@ -950,24 +958,36 @@ static int gcclua_get_translation_units(lua_State *L)
 
 static int gcclua_get_functions(lua_State *L)
 {
-  const struct cgraph_node *node;
+  struct cgraph_node *node;
   int i;
   lua_createtable(L, cgraph_n_nodes, 0);
-  for (node = cgraph_nodes, i = 1; node; node = node->next, i++) {
+  i = 1;
+  FOR_EACH_FUNCTION(node) {
+#if GCC_VERSION <= 4007
     gcclua_tree_new(L, node->decl);
+#else
+    gcclua_tree_new(L, node->symbol.decl);
+#endif
     lua_rawseti(L, -2, i);
+    i++;
   }
   return 1;
 }
 
 static int gcclua_get_variables(lua_State *L)
 {
-  const struct varpool_node *node;
+  struct varpool_node *node;
   int i;
   lua_newtable(L);
-  for (node = varpool_nodes, i = 1; node; node = node->next, i++) {
+  i = 1;
+  FOR_EACH_VARIABLE(node) {
+#if GCC_VERSION <= 4007
     gcclua_tree_new(L, node->decl);
+#else
+    gcclua_tree_new(L, node->symbol.decl);
+#endif
     lua_rawseti(L, -2, i);
+    i++;
   }
   return 1;
 }
