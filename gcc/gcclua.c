@@ -40,8 +40,8 @@ int plugin_is_GPL_compatible;
 /* weak symbol is non-NULL for C++ frontend */
 __typeof__(namespace_binding) namespace_binding __attribute__((weak));
 
-/* registry keys for tree userdata cache per tree code */
-static char gcclua_tree_cache[MAX_TREE_CODES];
+/* registry key for tree userdata cache */
+static char gcclua_tree_cache;
 /* registry keys for tree metatable per tree code */
 static char gcclua_tree_meta[MAX_TREE_CODES];
 
@@ -49,8 +49,7 @@ static void gcclua_tree_new(lua_State *L, const tree node)
 {
   enum tree_code code;
   tree *t;
-  code = TREE_CODE(node);
-  lua_pushlightuserdata(L, &gcclua_tree_cache[(int)code]);
+  lua_pushlightuserdata(L, &gcclua_tree_cache);
   lua_rawget(L, LUA_REGISTRYINDEX);
   if (lua_isnil(L, -1)) {
     lua_pushliteral(L, "cannot get tree cache table");
@@ -65,6 +64,7 @@ static void gcclua_tree_new(lua_State *L, const tree node)
   lua_pop(L, 1);
   t = (tree *)lua_newuserdata(L, sizeof(*t));
   *t = node;
+  code = TREE_CODE(node);
   lua_pushlightuserdata(L, &gcclua_tree_meta[(int)code]);
   lua_rawget(L, LUA_REGISTRYINDEX);
   if (lua_isnil(L, -1)) {
@@ -1285,15 +1285,15 @@ static int gcclua_loadlib(lua_State *L)
   const struct gcclua_plugin_event_reg *event;
   enum tree_code_class cls;
   int i;
+  lua_pushlightuserdata(L, &gcclua_tree_cache);
+  lua_newtable(L);
+  lua_pushvalue(L, -1);
+  lua_pushliteral(L, "v");
+  lua_setfield(L, -2, "__mode");
+  lua_setmetatable(L, -2);
+  lua_rawset(L, LUA_REGISTRYINDEX);
   lua_newtable(L);
   for (i = 0; i < MAX_TREE_CODES; ++i) {
-    lua_pushlightuserdata(L, &gcclua_tree_cache[i]);
-    lua_newtable(L);
-    lua_pushvalue(L, -1);
-    lua_pushliteral(L, "v");
-    lua_setfield(L, -2, "__mode");
-    lua_setmetatable(L, -2);
-    lua_rawset(L, LUA_REGISTRYINDEX);
     lua_pushlightuserdata(L, &gcclua_tree_meta[i]);
     lua_newtable(L);
     lua_pushvalue(L, -1);
@@ -1324,6 +1324,30 @@ static int gcclua_loadlib(lua_State *L)
   return 1;
 }
 
+static void gcclua_ggc_start(void *event_data, void *data)
+{
+  ggc_protect_identifiers = true;
+}
+
+static void gcclua_ggc_marking(void *event_data, void *data)
+{
+  const tree *t;
+  lua_State *L = (lua_State *)data;
+  lua_pushlightuserdata(L, &gcclua_tree_cache);
+  lua_rawget(L, LUA_REGISTRYINDEX);
+  if (lua_isnil(L, -1)) {
+    error("cannot get tree cache table");
+    return;
+  }
+  lua_pushnil(L);
+  while (lua_next(L, -2)) {
+    t = (const tree *)lua_touserdata(L, -1);
+    if (t) ggc_mark(*t);
+    lua_pop(L, 1);
+  }
+  lua_pop(L, 1);
+}
+
 static void gcclua_finish(void *event_data, void *data)
 {
   lua_State *L = (lua_State *)data;
@@ -1340,6 +1364,8 @@ int plugin_init(struct plugin_name_args *info,
     error("%s: cannot create state: out of memory", info->base_name);
     return 1;
   }
+  register_callback(info->base_name, PLUGIN_GGC_START, gcclua_ggc_start, L);
+  register_callback(info->base_name, PLUGIN_GGC_MARKING, gcclua_ggc_marking, L);
   register_callback(info->base_name, PLUGIN_FINISH, gcclua_finish, L);
   lua_gc(L, LUA_GCSTOP, 0);
   luaL_openlibs(L);
