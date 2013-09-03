@@ -14,6 +14,12 @@ assert(gcc.get_asm_file_name() == gcc.HOST_BIT_BUCKET)
 assert(gcc.get_main_input_basename() == "globals.c")
 assert(gcc.get_main_input_filename() == "./globals.c")
 
+gcc.register_callback(gcc.PLUGIN_START_UNIT, function()
+  gcc.define_macro("TURTLES")
+  gcc.define_macro("PI=3")
+  gcc.define_macro("SIN(x)=x")
+end)
+
 gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
   do
     local units = gcc.get_translation_units()

@@ -10,6 +10,7 @@
 #include "diagnostic.h"
 #include "tree.h"
 #include "tree-iterator.h"
+#include "c-family/c-pragma.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -1000,6 +1001,14 @@ static int gcclua_get_identifier(lua_State *L)
   return 1;
 }
 
+static int gcclua_define_macro(lua_State *L)
+{
+  const char *s;
+  s = luaL_checkstring(L, 1);
+  cpp_define(parse_in, s);
+  return 0;
+}
+
 static const luaL_Reg gcclua_tree[] = {
   {"class",      gcclua_tree_get_code_class_name},
   {"code",       gcclua_tree_get_code_name},
@@ -1239,6 +1248,7 @@ static const luaL_Reg gcclua[] = {
   {"get_functions",           gcclua_get_functions},
   {"get_variables",           gcclua_get_variables},
   {"get_identifier",          gcclua_get_identifier},
+  {"define_macro",            gcclua_define_macro},
   {NULL, NULL},
 };
 

@@ -91,6 +91,10 @@ Globals
 
    Returns identifier node for given string.
 
+.. function:: define_macro(s)
+
+   Define preprocessor macro.
+
 Tree Node
 ---------
 
