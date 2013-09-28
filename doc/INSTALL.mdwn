@@ -1,0 +1,65 @@
+% Installing
+
+gcc‑lua is available from a [git repository]:
+
+~~~
+git clone http://git.colberg.org/gcc-lua
+~~~
+
+To compile the plugin, run:
+
+~~~
+make
+~~~
+
+A distribution may ship the GCC plugin development headers in a separate
+package. The Debian distribution, for example, provides the package
+gcc-4.7-plugin-dev for GCC 4.7.
+
+The plugin is accompanied by a test suite:
+
+~~~
+make test
+~~~
+
+While the plugin is written in C, by default it is compiled with the GNU C++
+compiler. C++ will be the default from GCC 4.8 onwards, and many distributions
+already ship a version of GCC 4.7 compiled with `g++`. If the plugin fails to
+load due to unresolved symbols, try compiling with `gcc` instead.
+
+To compile the plugin using the GNU C compiler, set the make variable `CC`:
+
+~~~
+make CC=gcc
+~~~
+
+To compile the plugin using a non‑default GNU C++ compiler, override `CXX`:
+
+~~~
+make CXX=g++-4.7
+~~~
+
+The make variables `CC` or `CXX` apply to the test suite as well.
+
+By default, the plugin links against the `lua` library.
+
+To link against a differently named library, override `LUALIBS`:
+
+~~~
+make LUALIBS=-llua5.1
+~~~
+
+If the Lua headers are not in a default path, set the environment variable
+`CPATH`:
+
+~~~
+CPATH=/usr/include/lua5.1 make
+~~~
+
+To compile and link against LuaJIT 2.0:
+
+~~~
+CPATH=/usr/include/luajit-2.0 make LUALIBS=-lluajit-5.1
+~~~
+
+[git repository]: http://git.colberg.org/gcc-lua

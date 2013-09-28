@@ -1,0 +1,10 @@
+% Lua plugin for the GNU Compiler Collection
+% Peter Colberg
+% 2012-2013
+
+[![](gcc-lua.png "Lua plugin for the GNU Compiler Collection")](index.html)
+
+* [Lua plugin for GCC](index.html)
+    + [Installing](INSTALL.html)
+    + [User's Guide](README.html)
+    + [Reference](reference.html)

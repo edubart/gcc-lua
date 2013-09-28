@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"$$if(lang)$$ lang="$$lang$$" xml:lang="$$lang$$"$$endif$$>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="date" content="$date-meta$" />
+$endif$
+$$if(pagetitle)$$
+  <title>$$pagetitle$$ &mdash; $title$</title>
+$$else$$
+  <title>$title$</title>
+$$endif$$
+  <style type="text/css">code{white-space: pre;}</style>
+$$if(quotes)$$
+  <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+$$endif$$
+$$if(highlighting-css)$$
+  <style type="text/css">
+$$highlighting-css$$
+  </style>
+$$endif$$
+$$for(css)$$
+  <link rel="stylesheet" href="$$css$$" $$if(html5)$$$$else$$type="text/css" $$endif$$/>
+$$endfor$$
+$$if(math)$$
+  $$math$$
+$$endif$$
+$$for(header-includes)$$
+  $$header-includes$$
+$$endfor$$
+</head>
+<body>
+$$for(include-before)$$
+$$include-before$$
+$$endfor$$
+<div class="header">
+<ul>
+<li><a href="index.html">$title$</a></li>
+</ul>
+</div>
+<div class="columns">
+<div class="sidebar">
+$body$
+$$if(toc)$$
+<ul>
+<li><a href="#">$$title$$</a>
+$$toc$$
+</li>
+</ul>
+$$endif$$
+</div>
+<div class="body">
+$$if(title)$$
+<h1 class="title">$$title$$</h1>
+$$endif$$
+$$body$$
+</div>
+</div>
+<div class="footer">
+&copy; Copyright $date$$for(author)$, $author$$endfor$.
+Created using <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a>.
+</div>
+$$for(include-after)$$
+$$include-after$$
+$$endfor$$
+</body>
+</html>

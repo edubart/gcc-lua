@@ -1,0 +1,227 @@
+/*
+ * Stylesheet for Pandoc.
+ * Copyright © 2013 Peter Colberg.
+ * For conditions of distribution and use, see copyright notice in LICENSE.
+ */
+
+/*
+ * I would like to acknowledge Eric Pierce and Eric Holscher for their
+ * beautiful design seen at http://read-the-docs.readthedocs.org/.
+ */
+
+body {
+  font: 100%/1.5 'Arial', 'Helvetica', sans-serif;
+  color: #fff;
+  background-color: #4759a7;
+  margin: 0;
+  padding: 0;
+}
+
+div.header ul {
+  display: table;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 10px;
+  height: 2.5em;
+}
+
+div.header ul li {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+div.header ul li a {
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+  margin: 0 0 0 4px;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 3px;
+}
+
+div.header ul li a:hover {
+  background-color: #7a8ad1;
+  border-radius: 3px;
+}
+
+div.columns {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  color: #000;
+}
+
+div.columns div {
+  display: table-cell;
+  vertical-align: top;
+}
+
+div.sidebar {
+  background-color: #e8e9ef;
+  width: 12em;
+}
+
+div.sidebar ul {
+  list-style: none;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0;
+}
+
+div.sidebar ul ul {
+  margin: 0;
+}
+
+div.sidebar ul ul ul {
+  margin-left: 1em;
+}
+
+div.sidebar a {
+  border-bottom: none;
+}
+
+div.sidebar ul ul li {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+div.sidebar ul ul li:hover {
+  overflow: visible;
+}
+
+div.sidebar ul li a {
+  font-weight: bold;
+  color: #444;
+}
+
+div.sidebar ul li a:hover {
+  color: #111;
+  border-bottom: 1px solid #111;
+}
+
+div.sidebar ul ul li a {
+  font-weight: normal;
+  background-color: #e8e9ef;
+  padding: 0 5px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+div.sidebar ul ul li a:hover {
+  border: 1px solid #888;
+}
+
+div.sidebar p {
+  text-align: center;
+}
+
+div.body {
+  background-color: #fff;
+  padding: 0.5em 1.3em;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+div.footer {
+  font-size: 0.8em;
+  color: #fff;
+  text-align: center;
+  padding: 0 2em 2em 2em;
+}
+
+div.footer a {
+  color: #fff;
+}
+
+div.footer a:hover {
+  border-bottom: 1px solid #7a8ad1;
+}
+
+a {
+  color: #444;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+
+a:hover {
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid #111;
+}
+
+a:focus {
+  outline: none;
+}
+
+h1 {
+  margin: 0;
+  padding: 0.7em 0 0.3em 0;
+  font-size: 1.5em;
+  line-height: 1.15;
+  color: #111;
+}
+
+h1 a {
+  color: #111;
+  border-bottom: none;
+}
+
+h2 {
+  margin: 2em 0 0.2em 0;
+  font-size: 1.35em;
+  padding: 0;
+  color: #465158;
+}
+
+h2 a {
+  color: #465158;
+  border-bottom: none;
+}
+
+h3 {
+  margin: 1em 0 -0.3em 0;
+  font-size: 1.2em;
+  color: #6c818f;
+}
+
+h3 a {
+  color: #6c818f;
+  border-bottom: none;
+}
+
+cite, code, dt, pre {
+  font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+cite, code {
+  font-size: 0.95em;
+}
+
+dt {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #444;
+}
+
+dd p {
+  margin-top: 0;
+}
+
+pre {
+  font-size: 0.85em;
+  line-height: 120%;
+  margin: 1em 2em;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  background-color: #e8e9ef;
+  border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+pre code {
+  font-size: 1em;
+}
