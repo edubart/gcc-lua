@@ -431,6 +431,28 @@ static int gcclua_tree_get_int_cst(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_call_expr_fn(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  gcclua_tree_new(L, CALL_EXPR_FN(*t));
+  return 1;
+}
+
+static int gcclua_tree_get_call_expr_arg(lua_State *L)
+{
+  const tree *t;
+  int i, n;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  n = call_expr_nargs(*t);
+  for (i = 0; i < n; i++) {
+    gcclua_tree_new(L, CALL_EXPR_ARG(*t, i));
+  }
+  return n;
+}
+
 static int gcclua_tree_get_operand(lua_State *L)
 {
   const tree *t;
@@ -1065,6 +1087,11 @@ static const luaL_Reg gcclua_unary[] = {
   {NULL, NULL},
 };
 
+static const luaL_Reg gcclua_vl_exp[] = {
+  {"type",    gcclua_tree_get_type},
+  {NULL, NULL},
+};
+
 struct gcclua_tree_code_class_reg {
   const luaL_Reg *reg;
   enum tree_code_class cls;
@@ -1076,6 +1103,7 @@ static const struct gcclua_tree_code_class_reg gcclua_tree_code_class[] = {
   {gcclua_declaration, tcc_declaration},
   {gcclua_type,        tcc_type},
   {gcclua_unary,       tcc_unary},
+  {gcclua_vl_exp,      tcc_vl_exp},
   {NULL},
 };
 
@@ -1099,6 +1127,12 @@ static const luaL_Reg gcclua_bind_expr[] = {
 
 static const luaL_Reg gcclua_block[] = {
   {"vars", gcclua_tree_get_block_vars},
+  {NULL, NULL},
+};
+
+static const luaL_Reg gcclua_call_expr[] = {
+  {"function", gcclua_tree_get_call_expr_fn},
+  {"args", gcclua_tree_get_call_expr_arg},
   {NULL, NULL},
 };
 
@@ -1262,6 +1296,7 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {gcclua_array_type,            ARRAY_TYPE},
   {gcclua_bind_expr,             BIND_EXPR},
   {gcclua_block,                 BLOCK},
+  {gcclua_call_expr,             CALL_EXPR},
   {gcclua_constructor,           CONSTRUCTOR},
   {gcclua_const_decl,            CONST_DECL},
   {gcclua_enumeral_type,         ENUMERAL_TYPE},

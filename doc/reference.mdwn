@@ -525,6 +525,34 @@ statement
           : Returns tree node of return value.
 
 
+### Variable-length expressions
+
+This tree code class is used for function calls, and expressions with a
+variable number of operands.
+
+vl_exp
+
+  : The class provides the following methods:
+
+    node:type()
+
+      : Returns tree node of type of expression.
+
+    The following tree codes provide further methods:
+
+    call_expr
+
+      : Call expression.
+
+        node:function()
+
+          : Returns tree node of function declaration.
+
+        node:args()
+
+          : Returns tree nodes of arguments.
+
+
 ### Other expressions
 
 This tree code class is used for other expressions.
