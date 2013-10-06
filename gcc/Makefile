@@ -16,15 +16,21 @@ CPPFLAGS = -I$(shell $(CXX) -print-file-name=plugin)/include
 CXXFLAGS = -fPIC -O2 -Wall -pedantic -fno-exceptions -std=c++98 -Wno-long-long
 endif
 LDFLAGS  = -shared -Wl,-s
-LUALIBS  = -llua
+
+LUAMODS   = lua lua5.2 lua5.1 luajit
+LUAMOD    = $(firstword $(foreach mod,$(LUAMODS),$(shell pkg-config --exists $(mod) && echo $(mod))))
+ifneq (,$(LUAMOD))
+LUACFLAGS = $(shell pkg-config --cflags $(LUAMOD))
+LUALIBS   = $(shell pkg-config --libs $(LUAMOD))
+endif
 
 all: gcclua.so
 
 %.o: %.c
 ifdef CC
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LUACFLAGS) -c -o $@ $<
 else
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LUACFLAGS) -c -o $@ $<
 endif
 
 gcclua.so: gcclua.o

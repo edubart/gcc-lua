@@ -58,25 +58,12 @@ make CXX=g++-4.7
 
 The make variables `CC` or `CXX` apply to the test suite as well.
 
-By default, the plugin links against the `lua` library.
+By default, `pkg-config` is used to find the Lua library.
 
-To link against a differently named library, override `LUALIBS`:
-
-~~~
-make LUALIBS=-llua5.1
-~~~
-
-If the Lua headers are not in a default path, set the environment variable
-`CPATH`:
+If the Lua library cannot be found, override `LUACFLAGS` and `LUALIBS`:
 
 ~~~
-CPATH=/usr/include/lua5.1 make
-~~~
-
-To compile and link against LuaJIT 2.0:
-
-~~~
-CPATH=/usr/include/luajit-2.0 make LUALIBS=-lluajit-5.1
+make LUACFLAGS="-I/usr/include/lua5.1" LUALIBS="-L/usr/lib -llua5.1"
 ~~~
 
 [git repository]: http://git.colberg.org/gcc-lua
