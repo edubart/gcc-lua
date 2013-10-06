@@ -559,15 +559,17 @@ This tree code class is used for other expressions.
 
 expression
 
-  : The following tree codes provide further methods:
+  : The class provides the following methods:
 
-    addr_expr
+    node:operand()
 
-      : Address of an object.
+      : Returns tree nodes of operands of expression.
 
-        node:operand()
+    node:type()
 
-          : Returns tree node of operand.
+      : Returns tree node of type of expression.
+
+    The following tree codes provide further methods:
 
     bind_expr
 
@@ -584,14 +586,6 @@ expression
         node:vars()
 
           : Returns tree node of chain of declarations.
-
-    modify_expr
-
-      : Assignment expression.
-
-        node:operand()
-
-          : Returns tree nodes of left value and right value.
 
 
 ### Exceptional codes

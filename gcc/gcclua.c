@@ -1064,6 +1064,12 @@ static const luaL_Reg gcclua_declaration[] = {
   {NULL, NULL},
 };
 
+static const luaL_Reg gcclua_expression[] = {
+  {"operand", gcclua_tree_get_operand},
+  {"type",    gcclua_tree_get_type},
+  {NULL, NULL},
+};
+
 static const luaL_Reg gcclua_type[] = {
   {"align",        gcclua_tree_get_type_align},
   {"align_unit",   gcclua_tree_get_type_align_unit},
@@ -1101,15 +1107,11 @@ static const struct gcclua_tree_code_class_reg gcclua_tree_code_class[] = {
   {gcclua_binary,      tcc_binary},
   {gcclua_constant,    tcc_constant},
   {gcclua_declaration, tcc_declaration},
+  {gcclua_expression,  tcc_expression},
   {gcclua_type,        tcc_type},
   {gcclua_unary,       tcc_unary},
   {gcclua_vl_exp,      tcc_vl_exp},
   {NULL},
-};
-
-static const luaL_Reg gcclua_addr_expr[] = {
-  {"operand", gcclua_tree_get_operand},
-  {NULL, NULL},
 };
 
 static const luaL_Reg gcclua_array_type[] = {
@@ -1188,11 +1190,6 @@ static const luaL_Reg gcclua_integer_type[] = {
   {"max",      gcclua_tree_get_type_max_value},
   {"min",      gcclua_tree_get_type_min_value},
   {"unsigned", gcclua_tree_get_type_unsigned},
-  {NULL, NULL},
-};
-
-static const luaL_Reg gcclua_modify_expr[] = {
-  {"operand", gcclua_tree_get_operand},
   {NULL, NULL},
 };
 
@@ -1292,7 +1289,6 @@ struct gcclua_tree_code_reg {
 };
 
 static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
-  {gcclua_addr_expr,             ADDR_EXPR},
   {gcclua_array_type,            ARRAY_TYPE},
   {gcclua_bind_expr,             BIND_EXPR},
   {gcclua_block,                 BLOCK},
@@ -1306,7 +1302,6 @@ static const struct gcclua_tree_code_reg gcclua_tree_code[] = {
   {gcclua_identifier_node,       IDENTIFIER_NODE},
   {gcclua_integer_cst,           INTEGER_CST},
   {gcclua_integer_type,          INTEGER_TYPE},
-  {gcclua_modify_expr,           MODIFY_EXPR},
   {gcclua_pointer_type,          POINTER_TYPE},
   {gcclua_real_cst,              REAL_CST},
   {gcclua_record_type,           RECORD_TYPE},
