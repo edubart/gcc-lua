@@ -8,3 +8,4 @@
     + [Installing](INSTALL.html)
     + [User's Guide](README.html)
     + [Reference](reference.html)
+    + [Releases](CHANGES.html)

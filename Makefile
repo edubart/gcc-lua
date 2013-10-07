@@ -16,8 +16,8 @@ INSTALL_F = install -m 644
 INSTALL_L = install -m 644 -s
 
 FILES_GCC_PLUGIN = gcclua.so
-FILES_DOC        = INSTALL.mdwn README.mdwn index.mdwn reference.mdwn
-FILES_DOC_HTML   = INSTALL.html README.html index.html reference.html pandoc.css gcc-lua.png
+FILES_DOC        = CHANGES.mdwn INSTALL.mdwn README.mdwn index.mdwn reference.mdwn
+FILES_DOC_HTML   = CHANGES.html INSTALL.html README.html index.html reference.html pandoc.css gcc-lua.png
 
 gcc:
 	@$(MAKE) -C gcc

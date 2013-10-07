@@ -1,0 +1,25 @@
+% Releases
+
+This document lists the changes between stable releases.
+
+The version numbers follow [semantic versioning].
+
+[semantic versioning]: http://semver.org/spec/v2.0.0.html
+
+
+gcc‑lua 1.1.0 (2013-10-06) {#v1.1.0}
+--------------------------
+
+  * The `Makefile` uses `pkg-config` to find the Lua headers and library.
+
+    For most operating systems, compilation should no longer require any flags.
+
+  * Add `node:operand()` and `node:type()` for nodes of class **expression**.
+
+    These were provided only for **addr_expr** and **modify_expr** nodes before.
+
+
+gcc‑lua 1.0.0 (2013-09-29) {#v1.0.0}
+--------------------------
+
+  * Initial release of the Lua plugin for the GNU Compiler Collection.
