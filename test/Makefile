@@ -6,7 +6,6 @@
 
 CC       = gcc
 CFLAGS   = -std=c99 -Wall -pedantic
-CXX      = g++
 CXXFLAGS = -std=c++98 -Wall -pedantic
 GCCLUA   = $(CURDIR)/../gcc/gcclua.so
 
@@ -16,4 +15,4 @@ all: event globals tree tree-cp
 	$(CC) -S $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
 
 %: %.cxx %.lua
-	$(CXX) -S $(CXXFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
+	$(CC) -S $(CXXFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<

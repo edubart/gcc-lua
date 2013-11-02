@@ -4,16 +4,12 @@
 # For conditions of distribution and use, see copyright notice in LICENSE.
 #
 
-CC       =
-CXX      = g++
-ifdef CC
+CC       = gcc
 LD       = $(CC)
 CPPFLAGS = -I$(shell $(CC) -print-file-name=plugin)/include
-CFLAGS   = -fPIC -O2 -Wall -pedantic -std=c99
-else
-LD       = gcc
-CPPFLAGS = -I$(shell $(CXX) -print-file-name=plugin)/include
-CXXFLAGS = -fPIC -O2 -Wall -pedantic -fno-exceptions -std=c++98 -Wno-long-long
+CFLAGS   = -fPIC -O2 -Wall
+ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(CC) -E -dM $(CPPFLAGS) gcclua-config.h)))
+CFLAGS  += -xc++
 endif
 LDFLAGS  = -shared -Wl,-s
 
@@ -27,11 +23,7 @@ endif
 all: gcclua.so
 
 %.o: %.c
-ifdef CC
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LUACFLAGS) -c -o $@ $<
-else
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LUACFLAGS) -c -o $@ $<
-endif
 
 gcclua.so: gcclua.o
 	$(LD) -o $@ $< $(LDFLAGS) $(LUALIBS)

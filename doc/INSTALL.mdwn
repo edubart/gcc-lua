@@ -33,30 +33,12 @@ A distribution may ship the GCC plugin development headers in a separate
 package. The Debian distribution, for example, provides the package
 gcc-4.7-plugin-dev for GCC 4.7.
 
-The plugin is accompanied by a test suite:
+To compile the plugin using a specific version of the GNU compiler, override
+the make variable `CC`:
 
 ~~~
-make test
+make CC=gcc-4.8
 ~~~
-
-While the plugin is written in C, by default it is compiled with the GNU C++
-compiler. C++ will be the default from GCC 4.8 onwards, and many distributions
-already ship a version of GCC 4.7 compiled with `g++`. If the plugin fails to
-load due to unresolved symbols, try compiling with `gcc` instead.
-
-To compile the plugin using the GNU C compiler, set the make variable `CC`:
-
-~~~
-make CC=gcc
-~~~
-
-To compile the plugin using a non‑default GNU C++ compiler, override `CXX`:
-
-~~~
-make CXX=g++-4.7
-~~~
-
-The make variables `CC` or `CXX` apply to the test suite as well.
 
 By default, `pkg-config` is used to find the Lua library.
 
@@ -64,6 +46,18 @@ If the Lua library cannot be found, override `LUACFLAGS` and `LUALIBS`:
 
 ~~~
 make LUACFLAGS="-I/usr/include/lua5.1" LUALIBS="-L/usr/lib -llua5.1"
+~~~
+
+The plugin is accompanied by a test suite:
+
+~~~
+make test
+~~~
+
+The make variable `CC` applies to the test suite as well:
+
+~~~
+make test CC=gcc-4.8
 ~~~
 
 [git repository]: http://git.colberg.org/gcc-lua
