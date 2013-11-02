@@ -869,7 +869,7 @@ static void gcclua_callback(void *event_data, void *data)
   lua_pushcfunction(L, gcclua_traceback);
   lua_rawgeti(L, LUA_REGISTRYINDEX, cb->ref_fn);
   if (lua_pcall(L, 0, 0, -2)) {
-    error(lua_tostring(L, -1));
+    error("%s", lua_tostring(L, -1));
     return;
   }
 }
@@ -884,7 +884,7 @@ static void gcclua_callback_decl(void *event_data, void *data)
   lua_rawgeti(L, LUA_REGISTRYINDEX, cb->ref_fn);
   gcclua_tree_new(L, (tree)event_data);
   if (lua_pcall(L, 1, 0, -3)) {
-    error(lua_tostring(L, -1));
+    error("%s", lua_tostring(L, -1));
     return;
   }
 }
@@ -1433,7 +1433,7 @@ int plugin_init(struct plugin_name_args *info,
   }
   lua_pushcfunction(L, gcclua_traceback);
   if ((luaL_loadfile(L, filename) || lua_pcall(L, 0, 0, -2))) {
-    error(lua_tostring(L, -1));
+    error("%s", lua_tostring(L, -1));
     return 1;
   }
   return 0;

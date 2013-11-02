@@ -7,7 +7,7 @@
 CC       = gcc
 LD       = $(CC)
 CPPFLAGS = -I$(shell $(CC) -print-file-name=plugin)/include
-CFLAGS   = -fPIC -O2 -Wall
+CFLAGS   = -fPIC -O2 -Wall -Wformat-security
 ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(CC) -E -dM $(CPPFLAGS) gcclua-config.h)))
 CFLAGS  += -xc++
 endif
