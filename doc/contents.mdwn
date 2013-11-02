@@ -8,4 +8,5 @@
     + [Installing](INSTALL.html)
     + [User's Guide](README.html)
     + [Reference](reference.html)
+    + [Mailing list](https://lists.colberg.org/listinfo/gcc-lua)
     + [Releases](CHANGES.html)
