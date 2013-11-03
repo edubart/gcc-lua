@@ -5,14 +5,16 @@
 #
 
 CC       = gcc
-CFLAGS   = -std=c99 -Wall -pedantic
-CXXFLAGS = -std=c++98 -Wall -pedantic
+CFLAGS   = -Wall -pedantic
+CCOPT    = -std=c99
+CXXFLAGS = -Wall -pedantic
+CXXOPT   = -std=c++98
 GCCLUA   = $(CURDIR)/../gcc/gcclua.so
 
 all: event globals tree tree-cp
 
 %: %.c %.lua
-	$(CC) -S $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
+	$(CC) -S $(CCOPT) $(CFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
 
 %: %.cxx %.lua
-	$(CC) -S $(CXXFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
+	$(CC) -S $(CXXOPT) $(CXXFLAGS) -fplugin=$(GCCLUA) -fplugin-arg-gcclua-script=$@.lua ./$<
