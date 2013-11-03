@@ -5,9 +5,9 @@
 #
 
 PREFIX = /usr/local
-GCC    = gcc
+CC     = gcc
 
-INSTALL_GCC_PLUGIN = $(shell $(GCC) -print-file-name=plugin)
+INSTALL_GCC_PLUGIN = $(shell $(CC) -print-file-name=plugin)
 INSTALL_DOC        = $(PREFIX)/share/doc/gcc-lua
 INSTALL_DOC_HTML   = $(INSTALL_DOC)/html
 
