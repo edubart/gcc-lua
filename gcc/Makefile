@@ -13,7 +13,7 @@ CCOPT    = -fPIC
 ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(CC) -E -dM $(CPPOPT) gcclua-config.h)))
   CCOPT += -xc++
 endif
-LDFLAGS  = -Wl,-s
+LDFLAGS  = -Wl,-s -Wl,--as-needed
 LDOPT    = -shared
 LUAMODS  = lua lua5.2 lua5.1 luajit
 LUAMOD   = $(firstword $(foreach mod,$(LUAMODS),$(shell pkg-config --exists $(mod) && echo $(mod))))
@@ -28,7 +28,7 @@ all: gcclua.so
 	$(CC) -c -o $@ $(CPPOPT) $(CCOPT) $(CPPFLAGS) $(CFLAGS) $(LUACFLAGS) $<
 
 gcclua.so: gcclua.o
-	$(LD) -o $@ $(LDOPT) $(LDFLAGS) $(LUALIBS) $<
+	$(LD) -o $@ $< $(LDOPT) $(LDFLAGS) $(LUALIBS)
 
 clean:
 	$(RM) gcclua.so gcclua.o
