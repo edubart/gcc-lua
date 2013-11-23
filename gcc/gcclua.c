@@ -379,16 +379,19 @@ static int gcclua_tree_get_decl_size_unit(lua_State *L)
 static int gcclua_tree_get_decl_source_location(lua_State *L)
 {
   const tree *t;
-  expanded_location loc;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  loc = expand_location(DECL_SOURCE_LOCATION(*t));
-  if (!loc.file) {
+  if (DECL_IS_BUILTIN(*t)) {
     return 0;
   }
-  lua_pushstring(L, loc.file);
-  lua_pushnumber(L, loc.line);
+  lua_pushstring(L, DECL_SOURCE_FILE(*t));
+  lua_pushnumber(L, DECL_SOURCE_LINE(*t));
+#if GCC_VERSION <= 4007
   return 2;
+#else
+  lua_pushnumber(L, DECL_SOURCE_COLUMN(*t));
+  return 3;
+#endif
 }
 
 static int gcclua_tree_get_decl_user_align(lua_State *L)
