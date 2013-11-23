@@ -310,6 +310,10 @@ type
 
       : Returns size of type in bytes.
 
+    node:stub_decl()
+
+      : Returns stub declaration as a **type_decl** node.
+
     node:user_align()
 
       : Returns **true** if type has user-defined alignment, or **false** otherwise.

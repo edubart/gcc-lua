@@ -780,6 +780,20 @@ static int gcclua_tree_get_type_size_unit(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_type_stub_decl(lua_State *L)
+{
+  const tree *t;
+  tree child;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  child = TYPE_STUB_DECL(*t);
+  if (!child) {
+    return 0;
+  }
+  gcclua_tree_new(L, child);
+  return 1;
+}
+
 static int gcclua_tree_get_type_unsigned(lua_State *L)
 {
   const tree *t;
@@ -1082,6 +1096,7 @@ static const luaL_Reg gcclua_type[] = {
   {"restrict",     gcclua_tree_get_type_restrict},
   {"size",         gcclua_tree_get_type_size},
   {"size_unit",    gcclua_tree_get_type_size_unit},
+  {"stub_decl",    gcclua_tree_get_type_stub_decl},
   {"user_align",   gcclua_tree_get_type_user_align},
   {"volatile",     gcclua_tree_get_type_volatile},
   {NULL, NULL},
