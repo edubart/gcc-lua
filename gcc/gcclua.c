@@ -334,6 +334,15 @@ static int gcclua_tree_get_decl_name(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_decl_uid(lua_State *L)
+{
+  const tree *t;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  lua_pushnumber(L, DECL_UID(*t));
+  return 1;
+}
+
 static int gcclua_tree_get_decl_saved_tree(lua_State *L)
 {
   const tree *t;
@@ -1077,6 +1086,7 @@ static const luaL_Reg gcclua_declaration[] = {
   {"size",           gcclua_tree_get_decl_size},
   {"size_unit",      gcclua_tree_get_decl_size_unit},
   {"type",           gcclua_tree_get_type},
+  {"uid",            gcclua_tree_get_decl_uid},
   {"user_align",     gcclua_tree_get_decl_user_align},
   {NULL, NULL},
 };

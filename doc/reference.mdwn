@@ -169,6 +169,10 @@ declaration
 
       : Returns tree node of type of declaration.
 
+    node:uid()
+
+      : Returns unique number.
+
     node:user_align()
 
       : Returns **true** if declaration has user-defined alignment, or **false** otherwise.
