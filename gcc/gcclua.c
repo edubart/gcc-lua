@@ -5,6 +5,7 @@
  */
 
 #include "gcc-plugin.h"
+#include "plugin-version.h"
 #include "cgraph.h"
 #include "cp/cp-tree.h"
 #include "diagnostic.h"
@@ -28,7 +29,7 @@ extern "C" {
 #define luaL_setfuncs(L, l, nup) luaL_register(L, NULL, l)
 #endif
 
-#if GCC_VERSION <= 4007
+#if GCCPLUGIN_VERSION <= 4007
 #undef FOR_EACH_VEC_ELT
 #define FOR_EACH_VEC_ELT(v, i, t) for (i = 0; VEC_iterate(tree, &(v), (i), (t)); ++(i))
 #define FOR_EACH_FUNCTION(node) for ((node) = cgraph_nodes; (node); (node) = (node)->next)
@@ -395,7 +396,7 @@ static int gcclua_tree_get_decl_source_location(lua_State *L)
   }
   lua_pushstring(L, DECL_SOURCE_FILE(*t));
   lua_pushnumber(L, DECL_SOURCE_LINE(*t));
-#if GCC_VERSION <= 4007
+#if GCCPLUGIN_VERSION <= 4007
   return 2;
 #else
   lua_pushnumber(L, DECL_SOURCE_COLUMN(*t));
@@ -924,7 +925,7 @@ struct gcclua_plugin_event_reg {
 static const struct gcclua_plugin_event_reg gcclua_plugin_event[] = {
   {"PLUGIN_START_UNIT",     PLUGIN_START_UNIT,     gcclua_callback},
   {"PLUGIN_PRE_GENERICIZE", PLUGIN_PRE_GENERICIZE, gcclua_callback_decl},
-#if GCC_VERSION >= 4007
+#if GCCPLUGIN_VERSION >= 4007
   {"PLUGIN_FINISH_DECL",    PLUGIN_FINISH_DECL,    gcclua_callback_decl},
 #endif
   {"PLUGIN_FINISH_TYPE",    PLUGIN_FINISH_TYPE,    gcclua_callback_decl},
@@ -1012,7 +1013,7 @@ static int gcclua_get_functions(lua_State *L)
   lua_createtable(L, cgraph_n_nodes, 0);
   i = 1;
   FOR_EACH_FUNCTION(node) {
-#if GCC_VERSION <= 4007
+#if GCCPLUGIN_VERSION <= 4007
     gcclua_tree_new(L, node->decl);
 #else
     gcclua_tree_new(L, node->symbol.decl);
@@ -1030,7 +1031,7 @@ static int gcclua_get_variables(lua_State *L)
   lua_newtable(L);
   i = 1;
   FOR_EACH_VARIABLE(node) {
-#if GCC_VERSION <= 4007
+#if GCCPLUGIN_VERSION <= 4007
     gcclua_tree_new(L, node->decl);
 #else
     gcclua_tree_new(L, node->symbol.decl);
@@ -1426,7 +1427,10 @@ int plugin_init(struct plugin_name_args *info,
                 struct plugin_gcc_version *version)
 {
   const char *filename = NULL;
-  int i, argc = info->argc;
+  int i;
+  if (!plugin_default_version_check(version, &gcc_version)) {
+    return 1;
+  }
   lua_State *L = luaL_newstate();
   if (!L) {
     error("%s: cannot create state: out of memory", info->base_name);
@@ -1446,8 +1450,8 @@ int plugin_init(struct plugin_name_args *info,
   lua_pushcfunction(L, gcclua_loadlib);
   lua_setfield(L, -2, "gcc");
   lua_pop(L, 2);
-  lua_createtable(L, 0, argc);
-  for (i = 0; i < argc; i++) {
+  lua_createtable(L, 0, info->argc);
+  for (i = 0; i < info->argc; i++) {
     if (!strcmp(info->argv[i].key, "script")) {
       filename = info->argv[i].value;
     }
