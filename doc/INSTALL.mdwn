@@ -40,6 +40,18 @@ the make variable `CC`:
 make CC=gcc-4.8
 ~~~
 
+To compile the plugin for use with a cross compiler of the same version:
+
+~~~
+make CC=gcc-4.7 CROSS=arm-linux-gnueabihf-
+~~~
+
+To compile the plugin for use with a cross compiler of a different version:
+
+~~~
+make HOST_CC=gcc-4.8 TARGET_CC=arm-linux-gnueabihf-gcc-4.7
+~~~
+
 By default, `pkg-config` is used to find the Lua library.
 
 If the Lua library cannot be found, override `LUACFLAGS` and `LUALIBS`:
@@ -54,10 +66,6 @@ The plugin is accompanied by a test suite:
 make test
 ~~~
 
-The make variable `CC` applies to the test suite as well:
-
-~~~
-make test CC=gcc-4.8
-~~~
+The make variables `CC`, `CROSS`, or `TARGET_CC` also apply to the test suite.
 
 [git repository]: http://git.colberg.org/gcc-lua
