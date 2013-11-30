@@ -97,6 +97,10 @@ gcc.define_macro(s)
     gcc.define_macro("SIN(x)=x")
     ~~~
 
+gcc.GCC_VERSION
+
+  : A number corresponding to the GCC version the plugin was built for,
+    e.g., **4008** for GCC 4.8.
 
 Tree Nodes
 ----------

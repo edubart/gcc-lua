@@ -38,7 +38,7 @@ gcc.register_callback(gcc.PLUGIN_PRE_GENERICIZE, function(decl)
   table.insert(result, {"PLUGIN_PRE_GENERICIZE", decl})
 end)
 
-if gcc.PLUGIN_FINISH_DECL then -- GCC ≥ 4.7
+if gcc.GCC_VERSION > 4007 then
   gcc.register_callback(gcc.PLUGIN_FINISH_DECL, function(decl)
     assert(decl:class() == "declaration")
     table.insert(result, {"PLUGIN_FINISH_DECL", decl})
@@ -57,7 +57,7 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
     assert(decl:code() == "function_decl")
     assert(decl:name():value() == "down_strange_bottom_quarks")
   end
-  if gcc.PLUGIN_FINISH_DECL then -- GCC ≥ 4.7
+  if gcc.GCC_VERSION > 4007 then
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")
@@ -104,7 +104,7 @@ gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
     assert(decl:code() == "union_type")
     assert(decl:name() == nil)
   end
-  if gcc.PLUGIN_FINISH_DECL then -- GCC ≥ 4.7
+  if gcc.GCC_VERSION > 4007 then
     do
       local event, decl = unpack(table.remove(result))
       assert(event == "PLUGIN_FINISH_DECL")

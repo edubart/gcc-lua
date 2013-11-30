@@ -13,6 +13,7 @@ gcc.set_asm_file_name(gcc.HOST_BIT_BUCKET)
 assert(gcc.get_asm_file_name() == gcc.HOST_BIT_BUCKET)
 assert(gcc.get_main_input_basename() == "globals.c")
 assert(gcc.get_main_input_filename() == "./globals.c")
+assert(gcc.GCC_VERSION >= 4006)
 
 gcc.register_callback(gcc.PLUGIN_START_UNIT, function()
   gcc.define_macro("TURTLES")

@@ -6,6 +6,10 @@
 
 #include "gcc-plugin.h"
 #include "plugin-version.h"
+#ifndef GCCPLUGIN_VERSION
+#define GCCPLUGIN_VERSION BUILDING_GCC_VERSION
+#include "bversion.h"
+#endif
 #include "cgraph.h"
 #include "cp/cp-tree.h"
 #include "diagnostic.h"
@@ -1388,6 +1392,8 @@ static int gcclua_loadlib(lua_State *L)
     lua_pushnumber(L, event->ev);
     lua_setfield(L, -2, event->name);
   }
+  lua_pushnumber(L, GCCPLUGIN_VERSION);
+  lua_setfield(L, -2, "GCC_VERSION");
   lua_pushliteral(L, HOST_BIT_BUCKET);
   lua_setfield(L, -2, "HOST_BIT_BUCKET");
   return 1;
