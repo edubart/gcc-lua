@@ -65,6 +65,8 @@ gcc.get_main_input_basename()
 
   : Returns main input filename with any leading directory components removed.
 
+    *This function is available with GCC 4.6 or later.*
+
 gcc.get_main_input_filename()
 
   : Returns main input filename.
@@ -72,6 +74,8 @@ gcc.get_main_input_filename()
 gcc.get_translation_units()
 
   : Returns translation units as a sequence of **translation_unit_decl** nodes.
+
+    *This function is available with GCC 4.6 or later.*
 
 gcc.get_functions()
 
@@ -238,6 +242,8 @@ declaration
         node:language()
 
           : Returns language of translation unit.
+
+            *This function is available with GCC 4.6 or later.*
 
     type_decl
 

@@ -11,9 +11,11 @@ assert(arg.script == "globals.lua")
 assert(gcc.get_asm_file_name() == "globals.s")
 gcc.set_asm_file_name(gcc.HOST_BIT_BUCKET)
 assert(gcc.get_asm_file_name() == gcc.HOST_BIT_BUCKET)
-assert(gcc.get_main_input_basename() == "globals.c")
+if gcc.GCC_VERSION >= 4006 then
+  assert(gcc.get_main_input_basename() == "globals.c")
+end
 assert(gcc.get_main_input_filename() == "./globals.c")
-assert(gcc.GCC_VERSION >= 4006)
+assert(gcc.GCC_VERSION >= 4005)
 
 gcc.register_callback(gcc.PLUGIN_START_UNIT, function()
   gcc.define_macro("TURTLES")
@@ -22,7 +24,7 @@ gcc.register_callback(gcc.PLUGIN_START_UNIT, function()
 end)
 
 gcc.register_callback(gcc.PLUGIN_FINISH_UNIT, function()
-  do
+  if gcc.GCC_VERSION >= 4006 then
     local units = gcc.get_translation_units()
     assert(#units == 1)
     local unit = units[1]

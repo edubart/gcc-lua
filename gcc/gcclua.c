@@ -10,12 +10,19 @@
 #define GCCPLUGIN_VERSION BUILDING_GCC_VERSION
 #include "bversion.h"
 #endif
+#include "coretypes.h"
+#include "tm.h"
+#include "real.h"
 #include "cgraph.h"
 #include "cp/cp-tree.h"
 #include "diagnostic.h"
 #include "tree.h"
 #include "tree-iterator.h"
+#if GCCPLUGIN_VERSION >= 4006
 #include "c-family/c-pragma.h"
+#else
+#include "c-pragma.h"
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -294,7 +301,11 @@ static int gcclua_tree_get_decl_chain(lua_State *L)
   tree child;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
+#if GCCPLUGIN_VERSION >= 4006
   child = DECL_CHAIN(*t);
+#else
+  child = TREE_CHAIN(DECL_MINIMAL_CHECK(*t));
+#endif
   if (!child) {
     return 0;
   }
@@ -558,6 +569,7 @@ static int gcclua_tree_get_string_cst(lua_State *L)
   return 1;
 }
 
+#if GCCPLUGIN_VERSION >= 4006
 static int gcclua_tree_get_translation_unit_language(lua_State *L)
 {
   const tree *t;
@@ -571,6 +583,7 @@ static int gcclua_tree_get_translation_unit_language(lua_State *L)
   lua_pushstring(L, s);
   return 1;
 }
+#endif
 
 static int gcclua_tree_get_type(lua_State *L)
 {
@@ -985,11 +998,13 @@ static int gcclua_set_asm_file_name(lua_State *L)
   return 0;
 }
 
+#if GCCPLUGIN_VERSION >= 4006
 static int gcclua_get_main_input_basename(lua_State *L)
 {
   lua_pushstring(L, main_input_basename);
   return 1;
 }
+#endif
 
 static int gcclua_get_main_input_filename(lua_State *L)
 {
@@ -997,6 +1012,7 @@ static int gcclua_get_main_input_filename(lua_State *L)
   return 1;
 }
 
+#if GCCPLUGIN_VERSION >= 4006
 static int gcclua_get_translation_units(lua_State *L)
 {
   tree t;
@@ -1009,6 +1025,7 @@ static int gcclua_get_translation_units(lua_State *L)
   }
   return 1;
 }
+#endif
 
 static int gcclua_get_functions(lua_State *L)
 {
@@ -1266,7 +1283,9 @@ static const luaL_Reg gcclua_string_cst[] = {
 
 static const luaL_Reg gcclua_translation_unit_decl[] = {
   {"block",    gcclua_tree_get_decl_initial},
+#if GCCPLUGIN_VERSION >= 4006
   {"language", gcclua_tree_get_translation_unit_language},
+#endif
   {NULL, NULL},
 };
 
@@ -1306,9 +1325,13 @@ static const luaL_Reg gcclua[] = {
   {"register_callback",       gcclua_register_callback},
   {"get_asm_file_name",       gcclua_get_asm_file_name},
   {"set_asm_file_name",       gcclua_set_asm_file_name},
+#if GCCPLUGIN_VERSION >= 4006
   {"get_main_input_basename", gcclua_get_main_input_basename},
+#endif
   {"get_main_input_filename", gcclua_get_main_input_filename},
+#if GCCPLUGIN_VERSION >= 4006
   {"get_translation_units",   gcclua_get_translation_units},
+#endif
   {"get_functions",           gcclua_get_functions},
   {"get_variables",           gcclua_get_variables},
   {"get_identifier",          gcclua_get_identifier},
