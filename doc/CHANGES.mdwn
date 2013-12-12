@@ -7,6 +7,43 @@ The version numbers follow [semantic versioning].
 [semantic versioning]: http://semver.org/spec/v2.0.0.html
 
 
+gcc‑lua 1.2.0 (2013-12-12) {#v1.2.0}
+--------------------------
+
+  * The `Makefile` detects whether the GCC plugin ABI is C or C++.
+
+    The `gcc` frontend is used for both cases, and the flag `-xc++` is included
+    when needed.
+
+  * Fix missing format strings for the output of plugin errors.
+
+  * The make variables `CPPFLAGS`, `CFLAGS`, and `LDFLAGS` may be overriden.
+
+    This is useful for setting distribution-specific compiler flags.
+
+  * Add `node:stub_decl()` for types.
+
+    This can be used to get a declaration node for struct, union, or enum
+    types.
+
+  * Return column number for `node:location()` with GCC 4.8 or later.
+
+  * Add `node:uid()` for declarations.
+
+    The unique identifier is useful for ordering declarations by definition.
+
+  * Ensure matching versions of compiler and plugin.
+
+  * Support compilation of the plugin for a cross compiler.
+
+  * Add `gcc.GCC_VERSION`.
+
+  * Support compilation of the plugin for GCC 4.5.
+
+I would like to thank Dennis Schridde for contributing to this release
+by reporting bugs, suggesting features, and testing revisions.
+
+
 gcc‑lua 1.1.0 (2013-10-06) {#v1.1.0}
 --------------------------
 
