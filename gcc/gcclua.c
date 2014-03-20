@@ -13,15 +13,18 @@
 #include "coretypes.h"
 #include "tm.h"
 #include "real.h"
+#include "tree.h"
 #include "cgraph.h"
 #include "cp/cp-tree.h"
 #include "diagnostic.h"
-#include "tree.h"
 #include "tree-iterator.h"
 #if GCCPLUGIN_VERSION >= 4006
 #include "c-family/c-pragma.h"
 #else
 #include "c-pragma.h"
+#endif
+#if GCCPLUGIN_VERSION >= 4009
+#include "stringpool.h"
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -45,6 +48,10 @@ extern "C" {
 #define FOR_EACH_VEC_ELT(v, i, t) for (i = 0; VEC_iterate(tree, &(v), (i), (t)); ++(i))
 #define FOR_EACH_FUNCTION(node) for ((node) = cgraph_nodes; (node); (node) = (node)->next)
 #define FOR_EACH_VARIABLE(node) for ((node) = varpool_nodes; (node); (node) = (node)->next)
+#endif
+
+#if GCCPLUGIN_VERSION <= 4008
+#define get_tree_code_name(code) tree_code_name[(int)(code)]
 #endif
 
 /* http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses */
@@ -168,7 +175,7 @@ static int gcclua_tree_get_code_name(lua_State *L)
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
   code = TREE_CODE(*t);
-  lua_pushstring(L, tree_code_name[(int)code]);
+  lua_pushstring(L, get_tree_code_name(code));
   return 1;
 }
 
@@ -1034,10 +1041,10 @@ static int gcclua_get_functions(lua_State *L)
   lua_createtable(L, cgraph_n_nodes, 0);
   i = 1;
   FOR_EACH_FUNCTION(node) {
-#if GCCPLUGIN_VERSION <= 4007
-    gcclua_tree_new(L, node->decl);
-#else
+#if GCCPLUGIN_VERSION == 4008
     gcclua_tree_new(L, node->symbol.decl);
+#else
+    gcclua_tree_new(L, node->decl);
 #endif
     lua_rawseti(L, -2, i);
     i++;
@@ -1052,10 +1059,10 @@ static int gcclua_get_variables(lua_State *L)
   lua_newtable(L);
   i = 1;
   FOR_EACH_VARIABLE(node) {
-#if GCCPLUGIN_VERSION <= 4007
-    gcclua_tree_new(L, node->decl);
-#else
+#if GCCPLUGIN_VERSION == 4008
     gcclua_tree_new(L, node->symbol.decl);
+#else
+    gcclua_tree_new(L, node->decl);
 #endif
     lua_rawseti(L, -2, i);
     i++;
