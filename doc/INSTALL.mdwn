@@ -1,6 +1,8 @@
-% Installing
+---
+title: Installing
+---
 
-gcc‑lua is available from a [git repository]:
+The Lua plugin for GCC is available from a [git repository]:
 
 ~~~
 git clone http://git.colberg.org/gcc-lua

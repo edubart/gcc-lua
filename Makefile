@@ -9,7 +9,6 @@ CC     = gcc
 
 INSTALL_GCC_PLUGIN = $(shell $(CC) -print-file-name=plugin)
 INSTALL_DOC        = $(PREFIX)/share/doc/gcc-lua
-INSTALL_DOC_HTML   = $(INSTALL_DOC)/html
 
 INSTALL_D = install -d
 INSTALL_F = install -m 644
@@ -19,25 +18,25 @@ FILES_GCC_PLUGIN = gcclua.so
 FILES_DOC        = CHANGES.mdwn INSTALL.mdwn README.mdwn index.mdwn reference.mdwn
 FILES_DOC_HTML   = CHANGES.html INSTALL.html README.html index.html reference.html pandoc.css gcc-lua.png
 
+all: gcc doc
+
 gcc:
 	@$(MAKE) -C gcc
+
+doc:
+	@$(MAKE) -C doc
 
 test:
 	@$(MAKE) -C test
 
-install: gcc doc
+install: gcc
 	$(INSTALL_D) $(DESTDIR)$(INSTALL_GCC_PLUGIN)
 	cd gcc && $(INSTALL_L) $(FILES_GCC_PLUGIN) $(DESTDIR)$(INSTALL_GCC_PLUGIN)
 	$(INSTALL_D) $(DESTDIR)$(INSTALL_DOC)
-	cd doc && $(INSTALL_F) $(FILES_DOC) $(DESTDIR)$(INSTALL_DOC)
-	$(INSTALL_D) $(DESTDIR)$(INSTALL_DOC_HTML)
-	cd doc && $(INSTALL_F) $(FILES_DOC_HTML) $(DESTDIR)$(INSTALL_DOC_HTML)
-
-doc:
-	@$(MAKE) -C doc
+	cd doc && $(INSTALL_F) $(FILES_DOC) $(FILES_DOC_HTML) $(DESTDIR)$(INSTALL_DOC)
 
 clean:
 	@$(MAKE) -C gcc clean
 	@$(MAKE) -C doc clean
 
-.PHONY: gcc test install doc clean
+.PHONY: gcc test doc install clean

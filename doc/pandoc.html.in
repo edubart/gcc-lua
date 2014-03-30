@@ -39,27 +39,18 @@ $$for(include-before)$$
 $$include-before$$
 $$endfor$$
 <div class="header">
-<ul>
-<li><a href="index.html">$title$</a></li>
-</ul>
-</div>
-<div class="columns">
-<div class="sidebar">
 $body$
-$$if(toc)$$
-<ul>
-<li><a href="#">$$title$$</a>
-$$toc$$
-</li>
-</ul>
-$$endif$$
 </div>
 <div class="body">
 $$if(title)$$
-<h1 class="title">$$title$$</h1>
+<h1>$$title$$</h1>
+$$endif$$
+$$if(toc)$$
+<div class="toc">
+$$toc$$
+</div>
 $$endif$$
 $$body$$
-</div>
 </div>
 <div class="footer">
 &copy; Copyright $date$$for(author)$, $author$$endfor$.

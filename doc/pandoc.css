@@ -1,6 +1,6 @@
 /*
  * Stylesheet for Pandoc.
- * Copyright © 2013 Peter Colberg.
+ * Copyright © 2013–2014 Peter Colberg.
  * For conditions of distribution and use, see copyright notice in LICENSE.
  */
 
@@ -19,115 +19,61 @@ body {
 
 div.header ul {
   display: table;
-  list-style: none;
   margin: 0;
-  padding: 0 0 0 10px;
-  height: 2.5em;
+  padding: 0;
 }
 
 div.header ul li {
   display: table-cell;
-  vertical-align: middle;
 }
 
 div.header ul li a {
-  font-weight: bold;
+  display: inline-block;
   color: #fff;
   text-shadow: 0 1px rgba(0, 0, 0, 0.5);
-  margin: 0 0 0 4px;
-  padding: 3px 6px;
-  border: none;
-  border-radius: 3px;
+  line-height: 2em;
+  padding: 0 0.5em;
+  border-bottom: none;
+}
+
+div.header ul li:first-child a {
+  font-weight: bold;
 }
 
 div.header ul li a:hover {
   background-color: #7a8ad1;
-  border-radius: 3px;
-}
-
-div.columns {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-  color: #000;
-}
-
-div.columns div {
-  display: table-cell;
-  vertical-align: top;
-}
-
-div.sidebar {
-  background-color: #e8e9ef;
-  width: 12em;
-}
-
-div.sidebar ul {
-  list-style: none;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0;
-}
-
-div.sidebar ul ul {
-  margin: 0;
-}
-
-div.sidebar ul ul ul {
-  margin-left: 1em;
-}
-
-div.sidebar a {
-  border-bottom: none;
-}
-
-div.sidebar ul ul li {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  position: relative;
-}
-
-div.sidebar ul ul li:hover {
-  overflow: visible;
-}
-
-div.sidebar ul li a {
-  font-weight: bold;
-  color: #444;
-}
-
-div.sidebar ul li a:hover {
-  color: #111;
-  border-bottom: 1px solid #111;
-}
-
-div.sidebar ul ul li a {
-  font-weight: normal;
-  background-color: #e8e9ef;
-  padding: 0 5px;
-  border: 1px solid transparent;
-  border-radius: 3px;
-}
-
-div.sidebar ul ul li a:hover {
-  border: 1px solid #888;
-}
-
-div.sidebar p {
-  text-align: center;
 }
 
 div.body {
+  color: #000;
   background-color: #fff;
   padding: 0.5em 1.3em;
-  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 
+div.toc ul {
+  margin: 0.5em 0 1em 0;
+  padding: 0;
+  font-size: 0.9em;
+}
+
+div.toc ul li {
+  display: inline;
+}
+
+div.toc ul li:after {
+  padding: 0 0.2em 0 0.3em;
+  content: '\b7';
+}
+
+div.toc ul li:last-child:after {
+  content: none;
+}
+
 div.footer {
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
   font-size: 0.8em;
-  color: #fff;
   text-align: center;
   padding: 0 2em 2em 2em;
 }
@@ -138,6 +84,11 @@ div.footer a {
 
 div.footer a:hover {
   border-bottom: 1px solid #7a8ad1;
+}
+
+div.figure {
+  text-align: center;
+  font-size: 0.9em;
 }
 
 a {
@@ -170,7 +121,7 @@ h1 a {
 }
 
 h2 {
-  margin: 2em 0 0.2em 0;
+  margin: 2em 0 1em 0;
   font-size: 1.35em;
   padding: 0;
   color: #465158;
@@ -182,7 +133,7 @@ h2 a {
 }
 
 h3 {
-  margin: 1em 0 -0.3em 0;
+  margin: 1em 0 0.8em 0;
   font-size: 1.2em;
   color: #6c818f;
 }
@@ -192,7 +143,45 @@ h3 a {
   border-bottom: none;
 }
 
-cite, code, dt, pre {
+h4 {
+  margin: 1em 0 0.8em 0;
+  font-size: 1.1em;
+  color: #6c818f;
+}
+
+h4 a {
+  color: #6c818f;
+  border-bottom: none;
+}
+
+p, dl, ul {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+p {
+  overflow: auto;
+}
+
+li p {
+  overflow: visible;
+}
+
+p img {
+  float: left;
+  margin-right: 1.3em;
+}
+
+ul {
+  padding-left: 2em;
+}
+
+ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+cite, code, pre {
   font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
 }
 
@@ -201,13 +190,16 @@ cite, code {
 }
 
 dt {
-  margin-bottom: 0.5em;
   font-weight: bold;
   color: #444;
 }
 
-dd p {
-  margin-top: 0;
+dt code {
+  font-size: 1em;
+}
+
+dd {
+  margin-left: 2em;
 }
 
 pre {
@@ -224,4 +216,11 @@ pre {
 
 pre code {
   font-size: 1em;
+}
+
+table {
+  width: 100%;
+  margin: 1em 0;
+  border-spacing: 0;
+  border-collapse: collapse;
 }

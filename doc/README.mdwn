@@ -1,4 +1,6 @@
-% User's Guide
+---
+title: User's Guide
+---
 
 Consider the following C source file `hello.c`:
 
