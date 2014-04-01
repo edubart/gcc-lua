@@ -9,6 +9,13 @@ The version numbers follow [semantic versioning].
 [semantic versioning]: http://semver.org/spec/v2.0.0.html
 
 
+## gcc‑lua 1.2.1 (2014-04-01) {#v1.2.1}
+
+  * Support compilation of the plugin for GCC 4.9.
+
+  * Fix test suite on x86 architecture.
+
+
 ## gcc‑lua 1.2.0 (2013-12-12) {#v1.2.0}
 
   * The `Makefile` detects whether the GCC plugin ABI is C or C++.
