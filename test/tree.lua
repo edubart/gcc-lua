@@ -461,12 +461,6 @@ function test.packed_struct(decl)
   assert(decl:type():fields():chain():chain() == nil)
 end
 
-function test.unpacked_struct(decl)
-  assert(decl:type():packed() == false)
-  assert(decl:type():size():value() == 128)
-  assert(decl:type():attributes() == nil)
-end
-
 -- non-default alignment
 function test.user_align(decl)
   assert(decl:type():user_align() == true)

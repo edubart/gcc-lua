@@ -53,10 +53,6 @@ struct __attribute__((packed)) {
   int i;
   double d;
 } packed_struct;
-struct {
-  int i;
-  double d;
-} unpacked_struct;
 
 /* non-default alignment */
 struct {
