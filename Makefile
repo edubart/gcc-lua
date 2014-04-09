@@ -1,7 +1,7 @@
 #
 # Lua plugin for the GNU Compiler Collection.
 # Copyright © 2012 Peter Colberg.
-# For conditions of distribution and use, see copyright notice in LICENSE.
+# Distributed under the MIT license. (See accompanying file LICENSE.)
 #
 
 PREFIX = /usr/local
