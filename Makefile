@@ -18,7 +18,7 @@ FILES_GCC_PLUGIN = gcclua.so
 FILES_DOC        = CHANGES.mdwn INSTALL.mdwn README.mdwn index.mdwn reference.mdwn
 FILES_DOC_HTML   = CHANGES.html INSTALL.html README.html index.html reference.html pandoc.css gcc-lua.png
 
-all: gcc doc
+all: gcc
 
 gcc:
 	@$(MAKE) -C gcc
@@ -37,6 +37,5 @@ install: gcc
 
 clean:
 	@$(MAKE) -C gcc clean
-	@$(MAKE) -C doc clean
 
 .PHONY: gcc test doc install clean
