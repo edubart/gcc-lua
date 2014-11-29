@@ -62,12 +62,4 @@ If the Lua library cannot be found, override `LUACFLAGS` and `LUALIBS`:
 make LUACFLAGS="-I/usr/include/lua5.1" LUALIBS="-L/usr/lib -llua5.1"
 ~~~
 
-The plugin is accompanied by a test suite:
-
-~~~
-make test
-~~~
-
-The make variables `CC`, `CROSS`, or `TARGET_CC` also apply to the test suite.
-
 [git repository]: http://git.colberg.org/gcc-lua

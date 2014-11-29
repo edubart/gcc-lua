@@ -42,9 +42,6 @@
 <p>By default, <code>pkg-config</code> is used to find the Lua library.</p>
 <p>If the Lua library cannot be found, override <code>LUACFLAGS</code> and <code>LUALIBS</code>:</p>
 <pre><code>make LUACFLAGS=&quot;-I/usr/include/lua5.1&quot; LUALIBS=&quot;-L/usr/lib -llua5.1&quot;</code></pre>
-<p>The plugin is accompanied by a test suite:</p>
-<pre><code>make test</code></pre>
-<p>The make variables <code>CC</code>, <code>CROSS</code>, or <code>TARGET_CC</code> also apply to the test suite.</p>
 </div>
 <div class="footer">
 &copy; Copyright 2012–2014, Peter Colberg.
