@@ -11,7 +11,7 @@ CPPFLAGS  =
 CPPOPT    = -I$(shell $(TARGET_CC) -print-file-name=plugin)/include
 CFLAGS    = -O2 -Wall -Wformat-security
 CCOPT     = -fPIC
-ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(HOST_CC) -E -dM $(CPPOPT) gcclua-config.h)))
+ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(HOST_CC) -E -dM $(CPPOPT) -xc++ gcclua-config.h)))
   CCOPT  += -xc++
 endif
 LDFLAGS   = -Wl,-s -Wl,--as-needed

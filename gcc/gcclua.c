@@ -1038,7 +1038,7 @@ static int gcclua_get_functions(lua_State *L)
 {
   struct cgraph_node *node;
   int i;
-  lua_createtable(L, cgraph_n_nodes, 0);
+  lua_newtable(L);
   i = 1;
   FOR_EACH_FUNCTION(node) {
 #if GCCPLUGIN_VERSION == 4008
