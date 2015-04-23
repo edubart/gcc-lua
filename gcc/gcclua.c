@@ -1,6 +1,6 @@
 /*
  * Lua plugin for the GNU Compiler Collection.
- * Copyright © 2012 Peter Colberg.
+ * Copyright © 2012–2015 Peter Colberg.
  * Distributed under the MIT license. (See accompanying file LICENSE.)
  */
 
