@@ -121,7 +121,7 @@ Any [tree node] provides the following methods:
 
   : Returns tree code as a string.
 
-[tree node]: http://gcc.gnu.org/onlinedocs/gccint/GENERIC.html
+[tree node]: https://gcc.gnu.org/onlinedocs/gccint/GENERIC.html
 
 
 ### Declarations
@@ -308,6 +308,10 @@ This tree code class is used for type objects.
 
         The main variant excludes qualifiers.
 
+    `node:mode()`
+
+      : Returns [machine mode] as a string.
+
     `node:name()`
 
       : Returns tree node of type name.
@@ -455,6 +459,8 @@ This tree code class is used for type objects.
         `node:units()`
 
           : Returns number of vector elements.
+
+[machine mode]: https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html
 
 
 ### Constants

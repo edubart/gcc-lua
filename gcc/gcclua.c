@@ -25,6 +25,7 @@
 #endif
 #if GCCPLUGIN_VERSION >= 4009
 #include "stringpool.h"
+#include "stor-layout.h"
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -757,6 +758,17 @@ static int gcclua_tree_get_type_min_value(lua_State *L)
   return 1;
 }
 
+static int gcclua_tree_get_type_mode(lua_State *L)
+{
+  const tree *t;
+  machine_mode mode;
+  luaL_checktype(L, 1, LUA_TUSERDATA);
+  t = (const tree *)lua_touserdata(L, 1);
+  mode = TYPE_MODE(*t);
+  lua_pushstring(L, GET_MODE_NAME(mode));
+  return 1;
+}
+
 static int gcclua_tree_get_type_name(lua_State *L)
 {
   const tree *t;
@@ -1133,6 +1145,7 @@ static const luaL_Reg gcclua_type[] = {
   {"canonical",    gcclua_tree_get_type_canonical},
   {"const",        gcclua_tree_get_type_const},
   {"main_variant", gcclua_tree_get_type_main_variant},
+  {"mode",         gcclua_tree_get_type_mode},
   {"name",         gcclua_tree_get_type_name},
   {"packed",       gcclua_tree_get_type_packed},
   {"restrict",     gcclua_tree_get_type_restrict},

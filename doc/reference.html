@@ -122,7 +122,7 @@ gcc<span class="ot">.</span>define_macro<span class="ot">(</span><span class="st
 </dd>
 </dl>
 <h2 id="tree-nodes">Tree Nodes</h2>
-<p>Any <a href="http://gcc.gnu.org/onlinedocs/gccint/GENERIC.html">tree node</a> provides the following methods:</p>
+<p>Any <a href="https://gcc.gnu.org/onlinedocs/gccint/GENERIC.html">tree node</a> provides the following methods:</p>
 <dl>
 <dt><code>node:class()</code></dt>
 <dd><p>Returns tree code class as a string.</p>
@@ -281,6 +281,9 @@ gcc<span class="ot">.</span>define_macro<span class="ot">(</span><span class="st
 <dt><code>node:main_variant()</code></dt>
 <dd><p>Returns tree node of main variant of type.</p>
 <p>The main variant excludes qualifiers.</p>
+</dd>
+<dt><code>node:mode()</code></dt>
+<dd><p>Returns <a href="https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html">machine mode</a> as a string.</p>
 </dd>
 <dt><code>node:name()</code></dt>
 <dd><p>Returns tree node of type name.</p>
