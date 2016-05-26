@@ -15,7 +15,14 @@ ifneq (,$(findstring GCCLUA_USE_CXX,$(shell $(HOST_CC) -E -dM $(CPPOPT) -xc++ gc
   CCOPT  += -xc++
 endif
 LDFLAGS   =
-LDOPT     = -shared
+
+HOST_SYS := $(shell uname -s)
+ifeq (Darwin,$(HOST_SYS))
+  LDOPT   = -dynamiclib -Wl,-undefined,dynamic_lookup
+else
+  LDOPT   = -shared
+endif
+
 LUAMODS   = lua lua5.2 lua5.1 luajit
 LUAMOD    = $(firstword $(foreach mod,$(LUAMODS),$(shell pkg-config --exists $(mod) && echo $(mod))))
 ifneq (,$(LUAMOD))
