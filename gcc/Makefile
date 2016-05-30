@@ -23,7 +23,7 @@ else
   LDOPT   = -shared
 endif
 
-LUAMODS   = lua lua5.2 lua5.1 luajit
+LUAMODS   = lua lua-5.3 lua5.3 lua53 lua-5.2 lua5.2 lua52 lua-5.1 lua5.1 lua51 luajit
 LUAMOD    = $(firstword $(foreach mod,$(LUAMODS),$(shell pkg-config --exists $(mod) && echo $(mod))))
 ifneq (,$(LUAMOD))
   LUACFLAGS = $(shell pkg-config --cflags $(LUAMOD))

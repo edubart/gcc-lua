@@ -7,7 +7,7 @@ The [Lua plugin for GCC] extends the [GNU Compiler Collection] with the ability
 to run Lua scripts. The plugin provides an interface to register callback
 functions for plugin events, and inspect the abstract syntax tree of a
 translation unit. The plugin is useful for static C code analysis. The Lua
-plugin for GCC supports GCC 4.5 to 4.9 and [Lua] 5.1 or 5.2 or [LuaJIT].
+plugin for GCC supports GCC 4.5 to 4.9 and [Lua] 5.1 or 5.2 or 5.3 or [LuaJIT].
 
 [Lua plugin for GCC]: http://colberg.org/gcc-lua/
 [GNU Compiler Collection]: http://gcc.gnu.org/

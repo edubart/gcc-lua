@@ -213,7 +213,7 @@ static int gcclua_tree_get_decl_align(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, DECL_ALIGN(*t));
+  lua_pushinteger(L, DECL_ALIGN(*t));
   return 1;
 }
 
@@ -222,7 +222,7 @@ static int gcclua_tree_get_decl_align_unit(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, DECL_ALIGN_UNIT(*t));
+  lua_pushinteger(L, DECL_ALIGN_UNIT(*t));
   return 1;
 }
 
@@ -363,7 +363,7 @@ static int gcclua_tree_get_decl_uid(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, DECL_UID(*t));
+  lua_pushinteger(L, DECL_UID(*t));
   return 1;
 }
 
@@ -418,11 +418,11 @@ static int gcclua_tree_get_decl_source_location(lua_State *L)
     return 0;
   }
   lua_pushstring(L, DECL_SOURCE_FILE(*t));
-  lua_pushnumber(L, DECL_SOURCE_LINE(*t));
+  lua_pushinteger(L, DECL_SOURCE_LINE(*t));
 #if GCCPLUGIN_VERSION <= 4007
   return 2;
 #else
-  lua_pushnumber(L, DECL_SOURCE_COLUMN(*t));
+  lua_pushinteger(L, DECL_SOURCE_COLUMN(*t));
   return 3;
 #endif
 }
@@ -463,7 +463,11 @@ static int gcclua_tree_get_int_cst(lua_State *L)
 #else
 #error unsupported HOST_BITS_PER_WIDE_INT
 #endif
+#if LUA_VERSION_NUM < 503
   lua_pushnumber(L, (int64_t)u);
+#else
+  lua_pushinteger(L, (int64_t)u);
+#endif
   return 1;
 }
 
@@ -612,7 +616,7 @@ static int gcclua_tree_get_type_align(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, TYPE_ALIGN(*t));
+  lua_pushinteger(L, TYPE_ALIGN(*t));
   return 1;
 }
 
@@ -621,7 +625,7 @@ static int gcclua_tree_get_type_align_unit(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, TYPE_ALIGN_UNIT(*t));
+  lua_pushinteger(L, TYPE_ALIGN_UNIT(*t));
   return 1;
 }
 
@@ -880,7 +884,7 @@ static int gcclua_tree_get_type_vector_subparts(lua_State *L)
   const tree *t;
   luaL_checktype(L, 1, LUA_TUSERDATA);
   t = (const tree *)lua_touserdata(L, 1);
-  lua_pushnumber(L, TYPE_VECTOR_SUBPARTS(*t));
+  lua_pushinteger(L, TYPE_VECTOR_SUBPARTS(*t));
   return 1;
 }
 
@@ -912,7 +916,7 @@ static int gcclua_traceback(lua_State *L)
   lua_getglobal(L, "debug");
   lua_getfield(L, -1, "traceback");
   lua_pushvalue(L, 1);
-  lua_pushnumber(L, 2);
+  lua_pushinteger(L, 2);
   lua_call(L, 2, 1);
   return 1;
 }
@@ -1432,10 +1436,10 @@ static int gcclua_loadlib(lua_State *L)
   }
   luaL_setfuncs(L, gcclua, 0);
   for (event = gcclua_plugin_event; event->name; event++) {
-    lua_pushnumber(L, event->ev);
+    lua_pushinteger(L, event->ev);
     lua_setfield(L, -2, event->name);
   }
-  lua_pushnumber(L, GCCPLUGIN_VERSION);
+  lua_pushinteger(L, GCCPLUGIN_VERSION);
   lua_setfield(L, -2, "GCC_VERSION");
   lua_pushliteral(L, HOST_BIT_BUCKET);
   lua_setfield(L, -2, "HOST_BIT_BUCKET");
