@@ -55,6 +55,10 @@ extern "C" {
 #define get_tree_code_name(code) tree_code_name[(int)(code)]
 #endif
 
+#if GCCPLUGIN_VERSION < 7000
+#define TYPE_UNNAMED_P TYPE_ANONYMOUS_P
+#endif
+
 /* http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses */
 int plugin_is_GPL_compatible;
 
@@ -637,7 +641,7 @@ static int gcclua_tree_get_type_anonymous(lua_State *L)
   if (!namespace_binding) {
     return 0;
   }
-  lua_pushboolean(L, TYPE_ANONYMOUS_P(*t));
+  lua_pushboolean(L, TYPE_UNNAMED_P(*t));
   return 1;
 }
 
