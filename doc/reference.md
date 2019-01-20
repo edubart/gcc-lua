@@ -1,11 +1,11 @@
 ---
 title: Reference
+toc: 2
 ---
 
-Plugin Events
--------------
+# Plugin Events
 
-gcc.register_callback(event, `f)`
+`gcc.register_callback(event, f)`
 
   : Registers the function `f` for the given plugin event.
 
@@ -46,9 +46,7 @@ gcc.register_callback(event, `f)`
 
         The callback function receives no arguments.
 
-
-Globals
--------
+# Globals
 
 `gcc.get_asm_file_name()`
 
@@ -108,8 +106,7 @@ Globals
   : A number corresponding to the GCC version the plugin was built for,
     e.g., **4008** for GCC 4.8.
 
-Tree Nodes
-----------
+# Tree Nodes
 
 Any [tree node] provides the following methods:
 
@@ -121,10 +118,7 @@ Any [tree node] provides the following methods:
 
   : Returns tree code as a string.
 
-[tree node]: https://gcc.gnu.org/onlinedocs/gccint/GENERIC.html
-
-
-### Declarations
+## Declarations
 
 This tree code class is used for declarations.
 
@@ -271,8 +265,7 @@ This tree code class is used for declarations.
 
           : Returns **true** if variable is accessible outside translation unit, or **false** otherwise.
 
-
-### Types
+## Types
 
 This tree code class is used for type objects.
 
@@ -460,10 +453,7 @@ This tree code class is used for type objects.
 
           : Returns number of vector elements.
 
-[machine mode]: https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html
-
-
-### Constants
+## Constants
 
 This tree code class is used for constant values.
 
@@ -501,8 +491,7 @@ This tree code class is used for constant values.
 
           : Returns value as a string.
 
-
-### Unary expressions
+## Unary expressions
 
 This tree code class is used for unary arithmetic expressions.
 
@@ -518,8 +507,7 @@ This tree code class is used for unary arithmetic expressions.
 
       : Returns tree node of type of expression.
 
-
-### Binary expressions
+## Binary expressions
 
 This tree code class is used for binary arithmetic expressions.
 
@@ -535,8 +523,7 @@ This tree code class is used for binary arithmetic expressions.
 
       : Returns tree node of type of expression.
 
-
-### Statement expressions
+## Statement expressions
 
 This tree code class is used for statement expressions.
 
@@ -552,8 +539,7 @@ This tree code class is used for statement expressions.
 
           : Returns tree node of return value.
 
-
-### Variable-length expressions
+## Variable-length expressions
 
 This tree code class is used for function calls, and expressions with a
 variable number of operands.
@@ -580,8 +566,7 @@ variable number of operands.
 
           : Returns tree nodes of arguments.
 
-
-### Other expressions
+## Other expressions
 
 This tree code class is used for other expressions.
 
@@ -615,8 +600,7 @@ This tree code class is used for other expressions.
 
           : Returns tree node of chain of declarations.
 
-
-### Exceptional codes
+## Exceptional codes
 
 This tree code class is used for codes that fit no other category.
 
@@ -671,3 +655,6 @@ This tree code class is used for codes that fit no other category.
         `node:value()`
 
           : Returns tree node of value.
+
+[machine mode]: https://gcc.gnu.org/onlinedocs/gccint/Machine-Modes.html
+[tree node]: https://gcc.gnu.org/onlinedocs/gccint/GENERIC.html
