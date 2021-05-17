@@ -63,6 +63,10 @@ extern "C" {
 #define get_namespace_binding namespace_binding
 #endif
 
+#ifndef DECL_IS_BUILTIN
+#define DECL_IS_BUILTIN DECL_IS_UNDECLARED_BUILTIN
+#endif
+
 /* http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses */
 int plugin_is_GPL_compatible;
 
